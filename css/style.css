@@ -1,0 +1,468 @@
+/* ─── DM Sans (Google Fonts — loaded via <link> in HTML) ─── */
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg:      #0a0a0a;
+  --color-surface: #111111;
+  --color-text:    #ffffff;
+  --color-muted:   #888888;
+  --color-accent:  #ffffff;
+  --nav-height:    72px;
+  --gap:           4px;
+  --transition:    0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --font-primary:  'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ─── NAVBAR ─── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background-color: transparent;
+}
+
+.nav-logo {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.nav-tagline {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+.nav-item {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color var(--transition);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width var(--transition);
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: var(--color-text);
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+  width: 100%;
+}
+
+/* Burger — mobile only */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-burger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: var(--transition);
+}
+
+/* ─── PROJECTS SECTION ─── */
+.projects-section {
+  padding-top: var(--nav-height);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── PROJECT CARD ─── */
+.project {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Hidden by JS filtering */
+.project.hidden {
+  display: none;
+}
+
+.project-link {
+  display: block;
+  position: relative;
+}
+
+/* 3 stills side by side */
+.project-stills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  align-items: start;
+}
+
+.still {
+  overflow: hidden;
+}
+
+.still img {
+  transition: transform 0.6s ease;
+}
+
+.project:hover .still img {
+  transform: scale(1.03);
+}
+
+/* ─── HOVER OVERLAY ─── */
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.project:hover .project-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-title {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 10px 28px;
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.project-title:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.project-details {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ─── FOOTER ─── */
+.site-footer {
+  padding: 40px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 60px;
+}
+
+/* ─────────────────────────────────────────
+   PROJECT DETAIL PAGE
+   ───────────────────────────────────────── */
+.project-detail {
+  padding-top: calc(var(--nav-height) + 60px);
+  padding-bottom: 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.project-detail__header {
+  margin-bottom: 48px;
+}
+
+.project-detail__label {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 12px;
+}
+
+.project-detail__title {
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.project-detail__meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+.meta-item strong {
+  display: block;
+  color: var(--color-text);
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+/* Video embed */
+.project-detail__video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  margin-bottom: 48px;
+}
+
+.project-detail__video iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Photo gallery */
+.project-detail__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.project-detail__gallery .gallery-item {
+  overflow: hidden;
+  background-color: var(--color-surface);
+}
+
+.project-detail__gallery .gallery-item img {
+  transition: transform 0.5s ease;
+}
+
+.project-detail__gallery .gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+/* ─── CONTACT PAGE ─── */
+.contact-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--nav-height) + 60px) 40px 80px;
+  gap: 60px;
+}
+
+/* Bio (left) + Photo (right) */
+.contact-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.contact-bio {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-bio p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-photo {
+  width: 70%;
+  margin-left: auto;
+}
+
+.contact-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Contact details row */
+.contact-bottom {
+  display: flex;
+  gap: 80px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.contact-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-group-label {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+
+.contact-social-row {
+  display: flex;
+  gap: 16px;
+}
+
+.contact-link {
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color var(--transition);
+  display: block;
+  padding: 3px 0;
+}
+
+.contact-link:hover {
+  color: var(--color-text);
+}
+
+/* ─── RESPONSIVE ─── */
+
+@media (max-width: 900px) {
+  .contact-top {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact-photo {
+    width: 50%;
+    margin-left: 0;
+  }
+
+  .contact-bottom {
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-bg);
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    z-index: 99;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-item {
+    font-size: 14px;
+  }
+
+  .nav-burger {
+    display: flex;
+    z-index: 101;
+  }
+
+  .project-stills {
+    gap: 2px;
+  }
+
+  .project-detail__gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .project-detail {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
