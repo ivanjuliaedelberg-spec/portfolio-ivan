@@ -24,10 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Meta (director, productora, dop, año) ──
   const metaFields = [
-    { label: 'Director',    value: data.director },
-    { label: 'Producción',  value: data.producer },
-    { label: 'DOP',         value: data.dop },
-    { label: 'Año',         value: data.year },
+    { label: 'Director',              value: data.director },
+    { label: 'Producción',            value: data.producer },
+    { label: 'DOP',                   value: data.dop },
+    { label: 'Año',                   value: data.year },
+    { label: 'Sec. Unit Director',    value: data.secdirector },
+    { label: 'Sec. Unit DOP',         value: data.secdop },
   ].filter(f => f.value);
 
   const metaEl = document.getElementById('pd-meta');
