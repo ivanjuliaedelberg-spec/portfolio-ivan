@@ -42,7 +42,7 @@ const PROJECTS = {
   '7-rojas-barro': {
     title:         '7 Rojas Barro',
     categoryLabel: 'Music Video',
-    director:      '',
+    director:      'Valentine Torre',
     producer:      '',
     dop:           '',
     year:          '',
@@ -72,7 +72,7 @@ const PROJECTS = {
   'cortame-ahi': {
     title:         'Cortame Ahí',
     categoryLabel: 'Music Video',
-    director:      '',
+    director:      'Valentine Torre',
     producer:      '',
     dop:           '',
     year:          '',
@@ -87,8 +87,8 @@ const PROJECTS = {
   'el-rubio-marttein': {
     title:         'El Rubio Marttein',
     categoryLabel: 'Music Video',
-    director:      '',
-    producer:      '',
+    director:      'Clemente Bruzzone & José Fogwill',
+    producer:      'The Movement Land',
     dop:           '',
     year:          '',
     vimeoId:       '1026266849',
@@ -102,8 +102,8 @@ const PROJECTS = {
   'grandmaster-trueno': {
     title:         'Grandmaster Trueno',
     categoryLabel: 'Music Video',
-    director:      '',
-    producer:      '',
+    director:      'Lautaro Furiolo',
+    producer:      'Rebolución',
     dop:           '',
     year:          '',
     vimeoId:       '1091630332',
@@ -117,8 +117,8 @@ const PROJECTS = {
   'lauryn': {
     title:         'Lauryn',
     categoryLabel: 'Music Video',
-    director:      '',
-    producer:      '',
+    director:      'Lautaro Furiolo',
+    producer:      'Rebolución',
     dop:           '',
     year:          '',
     vimeoId:       '1087432295',
@@ -147,8 +147,8 @@ const PROJECTS = {
   'montonero-broke-carrey': {
     title:         'Montonero Broke Carrey',
     categoryLabel: 'Music Video',
-    director:      '',
-    producer:      '',
+    director:      'Juan Manuel Pinzon & Juan Lanzillotta',
+    producer:      'Bohemian Groove',
     dop:           '',
     year:          '',
     vimeoId:       '1006271726',
@@ -162,7 +162,7 @@ const PROJECTS = {
   'nunca-te-vayas': {
     title:         'Nunca Te Vayas de Casa — Chechi',
     categoryLabel: 'Music Video',
-    director:      '',
+    director:      'Tomas Murphy & Clara Bunge',
     producer:      '',
     dop:           '',
     year:          '',
@@ -179,7 +179,7 @@ const PROJECTS = {
   'ay-not-dead': {
     title:         'Ay Not Dead',
     categoryLabel: 'Commercial',
-    director:      '',
+    director:      'Juan Manuel Pinzon & Mateo Caride',
     producer:      '',
     dop:           '',
     year:          '',
@@ -194,8 +194,8 @@ const PROJECTS = {
   'dont-sync': {
     title:         "Don't Sync",
     categoryLabel: 'Commercial',
-    director:      '',
-    producer:      '',
+    director:      'Luchi Nobile',
+    producer:      'Doce Studios',
     dop:           '',
     year:          '',
     vimeoId:       '1072688254',
@@ -209,9 +209,9 @@ const PROJECTS = {
   'kd': {
     title:         'KD',
     categoryLabel: 'Commercial',
-    director:      '',
-    producer:      '',
-    dop:           '',
+    director:      'Martin Kalina',
+    producer:      'Primo Content',
+    dop:           'Khalid Mohtaseb',
     year:          '',
     vimeoId:       '939602351',
     stills: [
@@ -224,8 +224,8 @@ const PROJECTS = {
   'pedidos-ya': {
     title:         'Pedidos Ya',
     categoryLabel: 'Commercial',
-    director:      '',
-    producer:      '',
+    director:      'Nico Poniemann',
+    producer:      'Argentina Cine',
     dop:           '',
     year:          '',
     vimeoId:       '1091612207',
@@ -239,8 +239,8 @@ const PROJECTS = {
   'shell-la-joya': {
     title:         'Shell La Joya',
     categoryLabel: 'Commercial',
-    director:      '',
-    producer:      '',
+    director:      'Mati Moltrasio',
+    producer:      'Landia',
     dop:           '',
     year:          '',
     vimeoId:       '1117770024',
@@ -254,8 +254,8 @@ const PROJECTS = {
   'the-chicken': {
     title:         'The Chicken',
     categoryLabel: 'Commercial',
-    director:      '',
-    producer:      '',
+    director:      'Luchi Nobile',
+    producer:      'Doce Studios',
     dop:           '',
     year:          '',
     vimeoId:       '1042658327',
@@ -269,8 +269,8 @@ const PROJECTS = {
   'the-chicken-ep3': {
     title:         'The Chicken EP 3',
     categoryLabel: 'Commercial',
-    director:      '',
-    producer:      '',
+    director:      'Luchi Nobile',
+    producer:      'Doce Studios',
     dop:           '',
     year:          '',
     vimeoId:       '1048155809',
@@ -284,8 +284,8 @@ const PROJECTS = {
   'ypf-colapinto': {
     title:         'YPF Colapinto',
     categoryLabel: 'Commercial',
-    director:      '',
-    producer:      '',
+    director:      'Milton Kremer',
+    producer:      'Landia',
     dop:           '',
     year:          '',
     vimeoId:       '1148723478',
@@ -316,7 +316,7 @@ const PROJECTS = {
   'mal-trago': {
     title:         'Mal Trago',
     categoryLabel: 'Narrative',
-    director:      '',
+    director:      'Santino Taratuto',
     producer:      '',
     dop:           '',
     year:          '',

@@ -8,6 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // ─── Populate overlay details from PROJECTS data ───
+  if (typeof PROJECTS !== 'undefined') {
+    document.querySelectorAll('.project').forEach(article => {
+      const link = article.querySelector('.project-link');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      const id = new URLSearchParams(href.split('?')[1]).get('id');
+      const data = PROJECTS[id];
+      if (!data) return;
+      const detailsEl = article.querySelector('.project-details');
+      if (!detailsEl) return;
+      const parts = [];
+      if (data.director) parts.push(`Dir. ${data.director}`);
+      if (data.producer) parts.push(`Prod. ${data.producer}`);
+      detailsEl.textContent = parts.join(' | ');
+    });
+  }
+
   // ─── Mobile burger menu ───
   const burger = document.querySelector('.nav-burger');
   const navLinks = document.querySelector('.nav-links');

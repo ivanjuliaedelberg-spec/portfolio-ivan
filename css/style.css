@@ -365,6 +365,7 @@ img {
 /* Contact details row */
 .contact-bottom {
   display: flex;
+  flex-direction: row;
   gap: 80px;
   padding-top: 40px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -385,9 +386,10 @@ img {
   margin-bottom: 8px;
 }
 
-.contact-social-row {
+.contact-info-row {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .contact-link {
@@ -417,10 +419,6 @@ img {
     margin-left: 0;
   }
 
-  .contact-bottom {
-    flex-wrap: wrap;
-    gap: 40px;
-  }
 }
 
 @media (max-width: 640px) {
