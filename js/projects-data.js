@@ -57,8 +57,8 @@ const PROJECTS = {
   'cachetazo': {
     title:         'Cachetazo',
     categoryLabel: 'Music Video',
-    director:      '',
-    producer:      '',
+    director:      'Clemente Bruzzone & José Fogwill',
+    producer:      'The movement land',
     dop:           '',
     year:          '',
     vimeoId:       '',
@@ -132,8 +132,8 @@ const PROJECTS = {
   'llamalo': {
     title:         'Llámalo',
     categoryLabel: 'Music Video',
-    director:      '',
-    producer:      '',
+    director:      'Clemente Bruzzone & José Fogwill',
+    producer:      'The movement land',
     dop:           '',
     year:          '',
     vimeoId:       '',
@@ -301,7 +301,7 @@ const PROJECTS = {
   'la-biblioteca': {
     title:         'La Biblioteca',
     categoryLabel: 'Narrative',
-    director:      '',
+    director:      'Gaspar Werthein',
     producer:      '',
     dop:           '',
     year:          '',
