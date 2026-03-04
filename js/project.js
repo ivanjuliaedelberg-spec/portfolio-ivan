@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   data.stills.forEach((src, i) => {
     galleryEl.insertAdjacentHTML('beforeend', `
       <div class="gallery-item">
-        <img src="${src}" alt="${data.title} — still ${i + 1}" />
+        <img loading="lazy" src="${src}" alt="${data.title} — still ${i + 1}" />
       </div>
     `);
   });
