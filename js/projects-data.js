@@ -10,7 +10,7 @@ const PROJECTS = {
   // ── MUSIC VIDEOS ───────────────────────────────────────────────────
 
   'violento': {
-    title:         "Trueno 'Violento'",
+    title:         "Trueno - Violento",
     categoryLabel: 'Music Video',
     director:      'Lautaro Furiolo',
     producer:      'Rebolución',
@@ -26,110 +26,8 @@ const PROJECTS = {
     ],
   },
 
-  '344-trueno': {
-    title:         '344 Trueno',
-    categoryLabel: 'Music Video',
-    director:      'Lautaro Furiolo',
-    producer:      'Rebolución',
-    dop:           '',
-    year:          '',
-    vimeoId:       '1091619677',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 1.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 20.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 21.jpg',
-    ],
-  },
-
-  '7-rojas-barro': {
-    title:         '7 Rojas Barro',
-    categoryLabel: 'Music Video',
-    director:      'Valentine Torre',
-    producer:      '',
-    dop:           '',
-    year:          '',
-    vimeoId:       '857177923',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /Frame incial .jpeg',
-      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /fotos_1.94.1.JPG',
-      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /Untitled_1.6.1 2.PNG',
-    ],
-  },
-
-  'cachetazo': {
-    title:         'Cachetazo',
-    categoryLabel: 'Music Video',
-    director:      'Clemente Bruzzone & José Fogwill',
-    producer:      'The Movement Land',
-    dop:           '',
-    year:          '',
-    vimeoId:       '',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Frame inciial .jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Imagen 18-11-24 a las 16.20.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Imagen 18-11-24 a las 16.28.jpg',
-    ],
-  },
-
-  'cortame-ahi': {
-    title:         'Cortame Ahí',
-    categoryLabel: 'Music Video',
-    director:      'Valentine Torre',
-    producer:      '',
-    dop:           '',
-    year:          '',
-    vimeoId:       '838814267',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /frame inicial.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /CortameAhi_1.2.2.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /CortameAhi_2.39.1.PNG',
-    ],
-  },
-
-  'el-rubio-marttein': {
-    title:         'El Rubio Marttein',
-    categoryLabel: 'Music Video',
-    director:      'Clemente Bruzzone & José Fogwill',
-    producer:      'The Movement Land',
-    dop:           '',
-    year:          '',
-    vimeoId:       '1026266849',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-1.png',
-      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-2.png',
-      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-3.png',
-    ],
-  },
-
-  'grandmaster-trueno': {
-    title:         'Grandmaster Trueno',
-    categoryLabel: 'Music Video',
-    director:      'Lautaro Furiolo',
-    producer:      'Rebolución',
-    dop:           '',
-    year:          '',
-    vimeoId:       '1091630332',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /WhatsApp Image 2025-05-26 at 13.58.56.jpeg',
-      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /1 - Grandmaster - Stills - 5.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /1 - Grandmaster - Stills - 14.jpg',
-    ],
-  },
-
   'lauryn': {
-    title:         'Lauryn',
+    title:         'Trueno - Lauryn',
     categoryLabel: 'Music Video',
     director:      'Lautaro Furiolo',
     producer:      'Rebolución',
@@ -145,25 +43,25 @@ const PROJECTS = {
     ],
   },
 
-  'llamalo': {
-    title:         'Llámalo',
-    categoryLabel: 'Music Video',
-    director:      'Clemente Bruzzone & José Fogwill',
-    producer:      'The movement land',
+  'the-chicken': {
+    title:         'The Chicken EP 1',
+    categoryLabel: 'Commercial',
+    director:      'Luchi Nobile',
+    producer:      'Doce Studios',
     dop:           '',
     year:          '',
-    vimeoId:       '',
+    vimeoId:       '1042658327',
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/Imagen 18-11-24 a las 16.16.JPG',
-      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/LLAMALO 2.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/LLAMALO 3.PNG',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.13.6.jpg',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.14.2.jpg',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.19.1.jpg',
     ],
   },
 
   'montonero-broke-carrey': {
-    title:         'Montonero Broke Carrey',
+    title:         'Broke Carrey - Montonero',
     categoryLabel: 'Music Video',
     director:      'Juan Manuel Pinzon & Juan Lanzillotta',
     producer:      'Bohemian Groove',
@@ -179,8 +77,195 @@ const PROJECTS = {
     ],
   },
 
+  'llamalo': {
+    title:         'Marttein ft. Dillom - Llámalo',
+    categoryLabel: 'Music Video',
+    director:      'Clemente Bruzzone & José Fogwill',
+    producer:      'The movement land',
+    dop:           '',
+    year:          '',
+    vimeoId:       '',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/Imagen 18-11-24 a las 16.16.JPG',
+      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/LLAMALO 2.PNG',
+      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/LLAMALO 3.PNG',
+    ],
+  },
+
+'ay-not-dead': {
+    title:         'Ay Not Dead - FW 24',
+    categoryLabel: 'Commercial',
+    director:      'Juan Manuel Pinzon & Mateo Caride',
+    producer:      '',
+    dop:           '',
+    year:          '',
+    vimeoId:       '994107718',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.12.jpg',
+      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.21.jpg',
+      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.28_1.jpg',
+    ],
+  },
+
+ 'cortame-ahi': {
+    title:         'Juana Rozas ft. Marttein - Cortame Ahí',
+    categoryLabel: 'Music Video',
+    director:      'Valentine Torre',
+    producer:      '',
+    dop:           '',
+    year:          '',
+    vimeoId:       '838814267',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /frame inicial.PNG',
+      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /CortameAhi_1.2.2.PNG',
+      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /CortameAhi_2.39.1.PNG',
+    ],
+  },
+
+  '344-trueno': {
+    title:         'Trueno - 344',
+    categoryLabel: 'Music Video',
+    director:      'Lautaro Furiolo',
+    producer:      'Rebolución',
+    dop:           '',
+    year:          '',
+    vimeoId:       '1091619677',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 1.jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 20.jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 21.jpg',
+    ],
+  },
+
+ 'pedidos-ya': {
+    title:         'Igual prefiero pedir - Pedidos Ya',
+    categoryLabel: 'Commercial',
+    director:      'Nico Poniemann',
+    producer:      'Argentina Cine',
+    dop:           '',
+    year:          '',
+    vimeoId:       '1091612207',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.1.jpg',
+      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.2.jpg',
+      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.5 2.jpg',
+    ],
+  },
+
+  '7-rojas-barro': {
+    title:         'Barro - 7 Rojas',
+    categoryLabel: 'Music Video',
+    director:      'Valentine Torre',
+    producer:      '',
+    dop:           '',
+    year:          '',
+    vimeoId:       '857177923',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /Frame incial .jpeg',
+      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /fotos_1.94.1.JPG',
+      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /Untitled_1.6.1 2.PNG',
+    ],
+  },
+
+  'ypf-colapinto': {
+    title:         'Colapinto banderas - YPF',
+    categoryLabel: 'Commercial',
+    director:      'Milton Kremer',
+    producer:      'Landia',
+    dop:           '',
+    year:          '',
+    vimeoId:       '1148723478',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.1.jpg',
+      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.2.jpg',
+      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.3.jpg',
+    ],
+  },
+
+  'cachetazo': {
+    title:         'Marttein ft. Juana Rozas - Cachetazo',
+    categoryLabel: 'Music Video',
+    director:      'Clemente Bruzzone & José Fogwill',
+    producer:      'The Movement Land',
+    dop:           '',
+    year:          '',
+    vimeoId:       '',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Frame inciial .jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Imagen 18-11-24 a las 16.20.jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Imagen 18-11-24 a las 16.28.jpg',
+    ],
+  },
+
+  'el-rubio-marttein': {
+    title:         'Marttein - El Rubio',
+    categoryLabel: 'Music Video',
+    director:      'Clemente Bruzzone & José Fogwill',
+    producer:      'The Movement Land',
+    dop:           '',
+    year:          '',
+    vimeoId:       '1026266849',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-1.png',
+      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-2.png',
+      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-3.png',
+    ],
+  },
+
+  'kd': {
+    title:         "It's gotta be KD - KD",
+    categoryLabel: 'Commercial',
+    director:      'Martin Kalina',
+    producer:      'Primo Content',
+    dop:           'Khalid Mohtaseb',
+    year:          '',
+    vimeoId:       '939602351',
+    secdirector:   'Valentine Torre',
+    secdop:        'Iván Juliá',
+    stills: [
+      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.1 3.JPG',
+      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.2 2.JPG',
+      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.8.JPG',
+    ],
+  },
+
+  'grandmaster-trueno': {
+    title:         'Trueno - Grandmaster',
+    categoryLabel: 'Music Video',
+    director:      'Lautaro Furiolo',
+    producer:      'Rebolución',
+    dop:           '',
+    year:          '',
+    vimeoId:       '1091630332',
+    secdirector:   '',
+    secdop:        '',
+    stills: [
+      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /WhatsApp Image 2025-05-26 at 13.58.56.jpeg',
+      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /1 - Grandmaster - Stills - 5.jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /1 - Grandmaster - Stills - 14.jpg',
+    ],
+  },
+
   'nunca-te-vayas': {
-    title:         'Nunca Te Vayas de Casa — Chechi',
+    title:         'Nunca Te Vayas de Casa - Cechi Di Marco',
     categoryLabel: 'Music Video',
     director:      'Tomas Murphy & Clara Bunge',
     producer:      '',
@@ -198,25 +283,9 @@ const PROJECTS = {
 
   // ── COMMERCIALS ────────────────────────────────────────────────────
 
-  'ay-not-dead': {
-    title:         'Ay Not Dead',
-    categoryLabel: 'Commercial',
-    director:      'Juan Manuel Pinzon & Mateo Caride',
-    producer:      '',
-    dop:           '',
-    year:          '',
-    vimeoId:       '994107718',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.12.jpg',
-      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.21.jpg',
-      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.28_1.jpg',
-    ],
-  },
-
+  
   'dont-sync': {
-    title:         "Don't Sync",
+    title:         "Don't Sync - The Kitchen",
     categoryLabel: 'Commercial',
     director:      'Luchi Nobile',
     producer:      'Doce Studios',
@@ -232,42 +301,8 @@ const PROJECTS = {
     ],
   },
 
-  'kd': {
-    title:         'KD',
-    categoryLabel: 'Commercial',
-    director:      'Martin Kalina',
-    producer:      'Primo Content',
-    dop:           'Khalid Mohtaseb',
-    year:          '',
-    vimeoId:       '939602351',
-    secdirector:   'Valentine Torre',
-    secdop:        'Iván Juliá',
-    stills: [
-      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.1 3.JPG',
-      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.2 2.JPG',
-      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.8.JPG',
-    ],
-  },
-
-  'pedidos-ya': {
-    title:         'Pedidos Ya',
-    categoryLabel: 'Commercial',
-    director:      'Nico Poniemann',
-    producer:      'Argentina Cine',
-    dop:           '',
-    year:          '',
-    vimeoId:       '1091612207',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.1.jpg',
-      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.5 2.jpg',
-    ],
-  },
-
   'shell-la-joya': {
-    title:         'Shell La Joya',
+    title:         'La Joya - Shell',
     categoryLabel: 'Commercial',
     director:      'Mati Moltrasio',
     producer:      'Landia',
@@ -280,23 +315,6 @@ const PROJECTS = {
       '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.1.jpg',
       '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.2.jpg',
       '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.4.jpg',
-    ],
-  },
-
-  'the-chicken': {
-    title:         'The Chicken',
-    categoryLabel: 'Commercial',
-    director:      'Luchi Nobile',
-    producer:      'Doce Studios',
-    dop:           '',
-    year:          '',
-    vimeoId:       '1042658327',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.13.6.jpg',
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.14.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.19.1.jpg',
     ],
   },
 
@@ -314,23 +332,6 @@ const PROJECTS = {
       '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.3.2.jpg',
       '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.4.2.jpg',
       '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.6.2.jpg',
-    ],
-  },
-
-  'ypf-colapinto': {
-    title:         'YPF Colapinto',
-    categoryLabel: 'Commercial',
-    director:      'Milton Kremer',
-    producer:      'Landia',
-    dop:           '',
-    year:          '',
-    vimeoId:       '1148723478',
-    secdirector:   '',
-    secdop:        '',
-    stills: [
-      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.1.jpg',
-      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.3.jpg',
     ],
   },
 
