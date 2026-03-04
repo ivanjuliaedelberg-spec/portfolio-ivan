@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const id = new URLSearchParams(href.split('?')[1]).get('id');
       const data = PROJECTS[id];
       if (!data) return;
+      const titleEl = article.querySelector('.project-title');
+      if (titleEl) titleEl.textContent = data.title;
       const detailsEl = article.querySelector('.project-details');
       if (!detailsEl) return;
       const parts = [];
