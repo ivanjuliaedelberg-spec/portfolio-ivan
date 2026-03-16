@@ -345,7 +345,6 @@ const PROJECTS = {
     dop:           '',
     year:          '',
     vimeoId:       '',
-    secdirector:   'Valentine Torre',
     secdop:        'Iván Juliá',
     stills: [
       '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.01._1.12.1.PNG',
