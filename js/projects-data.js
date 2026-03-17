@@ -20,9 +20,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /VIOLENTO TRUENO /1 - Violento - Stills - 9.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /VIOLENTO TRUENO /1 - Violento - Stills - 11.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /VIOLENTO TRUENO /Frame inicio pagina .jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /VIOLENTO TRUENO /1 - Violento - Stills - 9.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /VIOLENTO TRUENO /1 - Violento - Stills - 11.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /VIOLENTO TRUENO /Frame inicio pagina .webp',
     ],
   },
 
@@ -37,9 +37,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /LAURYN/Frame inicio pagina .jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /LAURYN/1 - Lauryn - Stills - 1.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /LAURYN/1 - Lauryn - Stills - 11.jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /LAURYN/Frame inicio pagina .webp',
+      '../assets/images/STILLS MUSIC VIDEOS /LAURYN/1 - Lauryn - Stills - 1.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /LAURYN/1 - Lauryn - Stills - 11.webp',
     ],
   },
 
@@ -54,9 +54,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.13.6.jpg',
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.14.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.19.1.jpg',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.13.6.webp',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.14.2.webp',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN /Still 2024-12-09 144612_1.19.1.webp',
     ],
   },
 
@@ -71,9 +71,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /MONTONERO BROKE CARREY /thumb.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /MONTONERO BROKE CARREY /default_1.1.13.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /MONTONERO BROKE CARREY /default_1.1.42.PNG',
+      '../assets/images/STILLS MUSIC VIDEOS /MONTONERO BROKE CARREY /thumb.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /MONTONERO BROKE CARREY /default_1.1.13.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /MONTONERO BROKE CARREY /default_1.1.42.webp',
     ],
   },
 
@@ -88,9 +88,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/Imagen 18-11-24 a las 16.16.JPG',
-      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/LLAMALO 2.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/LLAMALO 3.PNG',
+      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/Imagen 18-11-24 a las 16.16.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/LLAMALO 2.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /LLAMALO/LLAMALO 3.webp',
     ],
   },
 
@@ -105,9 +105,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.12.jpg',
-      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.21.jpg',
-      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.28_1.jpg',
+      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.12.webp',
+      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.21.webp',
+      '../assets/images/STILLS COMMERCIALS/AY NOT DEAD /default_1.1.28_1.webp',
     ],
   },
 
@@ -122,9 +122,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /frame inicial.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /CortameAhi_1.2.2.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /CortameAhi_2.39.1.PNG',
+      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /frame inicial.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /CortameAhi_1.2.2.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /CORTAME AHI /CortameAhi_2.39.1.webp',
     ],
   },
 
@@ -139,9 +139,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 1.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 20.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 21.jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 1.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 20.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /344 TRUENO /1 - 344 - Stills - 21.webp',
     ],
   },
 
@@ -156,9 +156,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.1.jpg',
-      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.5 2.jpg',
+      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.1.webp',
+      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.2.webp',
+      '../assets/images/STILLS COMMERCIALS/PEDIDOS YA /Untitled_2.1.5 2.webp',
     ],
   },
 
@@ -173,9 +173,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /Frame incial .jpeg',
-      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /fotos_1.94.1.JPG',
-      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /Untitled_1.6.1 2.PNG',
+      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /Frame incial .webp',
+      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /fotos_1.94.1.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /7 ROJAS BARRO /Untitled_1.6.1 2.webp',
     ],
   },
 
@@ -190,9 +190,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.1.jpg',
-      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.3.jpg',
+      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.1.webp',
+      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.2.webp',
+      '../assets/images/STILLS COMMERCIALS/YPF COLAPINTO /Untitled_1.1.3.webp',
     ],
   },
 
@@ -207,9 +207,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Frame inciial .jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Imagen 18-11-24 a las 16.20.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Imagen 18-11-24 a las 16.28.jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Frame inciial .webp',
+      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Imagen 18-11-24 a las 16.20.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /CACHETAZO /Imagen 18-11-24 a las 16.28.webp',
     ],
   },
 
@@ -224,9 +224,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-1.png',
-      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-2.png',
-      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-3.png',
+      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-1.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-2.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /EL RUBIO MARTTEIN /still-3.webp',
     ],
   },
 
@@ -241,9 +241,9 @@ const PROJECTS = {
     secdirector:   'Valentine Torre',
     secdop:        'Iván Juliá',
     stills: [
-      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.1 3.JPG',
-      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.2 2.JPG',
-      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.8.JPG',
+      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.1 3.webp',
+      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.2 2.webp',
+      '../assets/images/STILLS COMMERCIALS/KD /Sin título_1.1.8.webp',
     ],
   },
 
@@ -258,9 +258,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /WhatsApp Image 2025-05-26 at 13.58.56.jpeg',
-      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /1 - Grandmaster - Stills - 5.jpg',
-      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /1 - Grandmaster - Stills - 14.jpg',
+      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /WhatsApp Image 2025-05-26 at 13.58.56.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /1 - Grandmaster - Stills - 5.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /GRAND MASTER TRUENO /1 - Grandmaster - Stills - 14.webp',
     ],
   },
 
@@ -275,9 +275,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS MUSIC VIDEOS /NUNCA TE VAYAS DE CASA CHECHI /0901_NuncaTeVayas.00_00_30_19.Still068 2.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /NUNCA TE VAYAS DE CASA CHECHI /0901_NuncaTeVayas.00_01_31_10.Still104.PNG',
-      '../assets/images/STILLS MUSIC VIDEOS /NUNCA TE VAYAS DE CASA CHECHI /0901_NuncaTeVayas.00_02_45_16.Still134.PNG',
+      '../assets/images/STILLS MUSIC VIDEOS /NUNCA TE VAYAS DE CASA CHECHI /0901_NuncaTeVayas.00_00_30_19.Still068 2.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /NUNCA TE VAYAS DE CASA CHECHI /0901_NuncaTeVayas.00_01_31_10.Still104.webp',
+      '../assets/images/STILLS MUSIC VIDEOS /NUNCA TE VAYAS DE CASA CHECHI /0901_NuncaTeVayas.00_02_45_16.Still134.webp',
     ],
   },
 
@@ -295,9 +295,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS COMMERCIALS/DONT SYNC/Still_1.3.1.jpg',
-      '../assets/images/STILLS COMMERCIALS/DONT SYNC/Still_4.1.1.jpg',
-      '../assets/images/STILLS COMMERCIALS/DONT SYNC/Still_4.4.1.jpg',
+      '../assets/images/STILLS COMMERCIALS/DONT SYNC/Still_1.3.1.webp',
+      '../assets/images/STILLS COMMERCIALS/DONT SYNC/Still_4.1.1.webp',
+      '../assets/images/STILLS COMMERCIALS/DONT SYNC/Still_4.4.1.webp',
     ],
   },
 
@@ -312,9 +312,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.1.jpg',
-      '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.4.jpg',
+      '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.1.webp',
+      '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.2.webp',
+      '../assets/images/STILLS COMMERCIALS/SHELL LA JOYA /la joya _1.1.4.webp',
     ],
   },
 
@@ -329,9 +329,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.3.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.4.2.jpg',
-      '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.6.2.jpg',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.3.2.webp',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.4.2.webp',
+      '../assets/images/STILLS COMMERCIALS/THE CHICKEN EP 3 /Still 2024-12-09 144612_1.6.2.webp',
     ],
   },
 
@@ -347,9 +347,9 @@ const PROJECTS = {
     vimeoId:       '',
     secdop:        'Iván Juliá',
     stills: [
-      '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.01._1.12.1.PNG',
-      '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.01._1.13.2.PNG',
-      '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.03._1.27.2.PNG',
+      '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.01._1.12.1.webp',
+      '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.01._1.13.2.webp',
+      '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.03._1.27.2.webp',
     ],
   },
 
@@ -364,9 +364,9 @@ const PROJECTS = {
     secdirector:   '',
     secdop:        '',
     stills: [
-      '../assets/images/STILLS NARRATIVES/mal trago /Diseño sin título-4.png',
-      '../assets/images/STILLS NARRATIVES/mal trago /Frame ellos sRGB_centrado.png',
-      '../assets/images/STILLS NARRATIVES/mal trago /Frame Martín baño 2 sRGB.png',
+      '../assets/images/STILLS NARRATIVES/mal trago /Diseño sin título-4.webp',
+      '../assets/images/STILLS NARRATIVES/mal trago /Frame ellos sRGB_centrado.webp',
+      '../assets/images/STILLS NARRATIVES/mal trago /Frame Martín baño 2 sRGB.webp',
     ],
   },
 
@@ -380,9 +380,9 @@ const PROJECTS = {
   //   year:          '2025',
   //   vimeoId:       '123456789',         // dejar '' si no hay video todavía
   //   stills: [
-  //     '../assets/images/STILLS MUSIC VIDEOS /NOMBRE PROYECTO /still-1.jpg',
-  //     '../assets/images/STILLS MUSIC VIDEOS /NOMBRE PROYECTO /still-2.jpg',
-  //     '../assets/images/STILLS MUSIC VIDEOS /NOMBRE PROYECTO /still-3.jpg',
+  //     '../assets/images/STILLS MUSIC VIDEOS /NOMBRE PROYECTO /still-1.webp',
+  //     '../assets/images/STILLS MUSIC VIDEOS /NOMBRE PROYECTO /still-2.webp',
+  //     '../assets/images/STILLS MUSIC VIDEOS /NOMBRE PROYECTO /still-3.webp',
   //   ],
   // },
 
