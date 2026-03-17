@@ -2,6 +2,39 @@
    Ivan Julia Portfolio — main.js
    ───────────────────────────────────────── */
 
+// ─── Progressive image loading ───
+function initProgressiveImages() {
+  const imgs = Array.from(document.querySelectorAll('img.lq[data-hq]'));
+  if (!imgs.length) return;
+
+  let lqCount = 0;
+
+  const startHQ = () => {
+    imgs.forEach(img => {
+      const hq = new Image();
+      hq.onload = () => {
+        img.src = hq.src;
+        img.classList.remove('lq');
+        img.classList.add('hq-ready');
+      };
+      hq.src = img.dataset.hq;
+    });
+  };
+
+  imgs.forEach(img => {
+    const onLqLoaded = () => {
+      lqCount++;
+      if (lqCount === imgs.length) startHQ();
+    };
+    if (img.complete) {
+      onLqLoaded();
+    } else {
+      img.addEventListener('load', onLqLoaded, { once: true });
+      img.addEventListener('error', onLqLoaded, { once: true });
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ─── Year in footer ───
@@ -90,5 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hashFilter = window.location.hash.replace('#', '');
     if (hashFilter) applyFilter(hashFilter);
   }
+
+  initProgressiveImages();
 
 });

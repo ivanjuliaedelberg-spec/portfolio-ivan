@@ -58,11 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Gallery de stills ──
   const galleryEl = document.getElementById('pd-gallery');
   data.stills.forEach((src, i) => {
+    const lqSrc = src.replace('.webp', '-lq.webp');
     galleryEl.insertAdjacentHTML('beforeend', `
       <div class="gallery-item">
-        <img loading="lazy" src="${src}" alt="${data.title} — still ${i + 1}" />
+        <img class="lq" loading="lazy" src="${lqSrc}" data-hq="${src}" alt="${data.title} — still ${i + 1}" />
       </div>
     `);
   });
+
+  if (typeof initProgressiveImages === 'function') initProgressiveImages();
 
 });

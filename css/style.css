@@ -26,7 +26,7 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-primary);
+  font-family: var(--font-primary), sans-serif;
   font-weight: 300;
   letter-spacing: 0.04em;
   -webkit-font-smoothing: antialiased;
@@ -170,7 +170,17 @@ img {
 }
 
 .still img {
-  transition: transform 0.6s ease;
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+.still img.lq {
+  filter: blur(4px);
+  transform: scale(1.02);
+}
+
+.still img.hq-ready {
+  filter: none;
+  transform: scale(1);
 }
 
 .project:hover .still img {
@@ -313,7 +323,17 @@ img {
 }
 
 .project-detail__gallery .gallery-item img {
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+.project-detail__gallery .gallery-item img.lq {
+  filter: blur(4px);
+  transform: scale(1.02);
+}
+
+.project-detail__gallery .gallery-item img.hq-ready {
+  filter: none;
+  transform: scale(1);
 }
 
 .project-detail__gallery .gallery-item:hover img {
