@@ -140,6 +140,15 @@ All mutation routes require a valid JWT in the `admin_token` httpOnly cookie. Re
 - Returns `{ ok: true }`
 - UI: on 409, shows a toast error "Conflict — please try again" with a retry button next to the project row
 
+### `PUT /api/projects/reorder`
+- Requires valid JWT cookie
+- Body: `{ ids: string[] }` — full ordered array of project IDs
+- Fetches `data/projects.json` current content + SHA via GitHub API
+- Reorders the array to match the submitted `ids` order
+- Commits updated JSON with current SHA
+- On GitHub 409 (SHA conflict): returns 409 `{ error: "Conflict — please try again" }`
+- Returns `{ ok: true }`
+
 ---
 
 ## Admin UI
@@ -153,7 +162,10 @@ Single-page app at `/admin/index.html`. No framework — vanilla JS.
 ### Dashboard
 - **Header:** "IVAN JULIA — Admin" + logout button (calls `POST /api/logout`, then redirects to login)
 - **Sidebar:** project count by category (All / Music Videos / Commercials / Narrative)
-- **Project list:** thumbnail, title, project ID, category badge, Vimeo ID, delete button
+- **Project list:** thumbnail, title, project ID, category badge, Vimeo ID, ↑ ↓ reorder buttons, delete button
+  - Moving a row marks the list as "unsaved" and shows a "Save Order" button in the page header
+  - Clicking "Save Order" calls `PUT /api/projects/reorder` with the current ID order; shows "Saving…" feedback
+  - On 409 conflict: toast with retry button
 - **Add project form:**
   - 3 image upload slots (click to pick file) — each slot uploads immediately on file selection via `POST /api/upload`; shows preview on success, error message on failure
   - Client validates file size ≤ 10 MB before sending; shows inline error if exceeded
@@ -287,7 +299,7 @@ GITHUB_BRANCH          main
 ## Out of Scope
 
 - Editing existing projects (delete + re-add as workaround)
-- Reordering projects (manual edit of `projects.json` in GitHub)
+- Drag-and-drop reordering (↑ ↓ buttons used instead)
 - Multiple admin users
 - Video hosting (Vimeo ID is still entered manually)
 - Deleting orphaned image files from repo after project deletion
