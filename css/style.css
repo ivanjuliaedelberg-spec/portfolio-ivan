@@ -475,6 +475,26 @@ img {
     gap: 2px;
   }
 
+  .project-overlay {
+    overflow: hidden;
+    gap: 8px;
+  }
+
+  .project-title {
+    padding: 8px 14px;
+    font-size: 11px;
+    max-width: 90%;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  .project-details {
+    font-size: 10px;
+    text-align: center;
+    padding: 0 8px;
+    word-break: break-word;
+  }
+
   .project-detail__gallery {
     grid-template-columns: 1fr;
   }

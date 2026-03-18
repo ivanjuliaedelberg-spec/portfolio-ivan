@@ -345,7 +345,7 @@ const PROJECTS = {
     dop:           '',
     year:          '',
     vimeoId:       '',
-    secdop:        'Iván Juliá',
+    secdop:        '',
     stills: [
       '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.01._1.12.1.webp',
       '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.01._1.13.2.webp',
