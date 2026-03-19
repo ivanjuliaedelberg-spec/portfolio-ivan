@@ -2,6 +2,11 @@
    Ivan Julia Portfolio — main.js
    ───────────────────────────────────────── */
 
+// ─── HTML escape helper (prevents XSS from projects.json values) ───
+const esc = s => String(s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 // ─── Progressive image loading ───
 function initProgressiveImages() {
   const imgs = Array.from(document.querySelectorAll('img.lq[data-hq]'));
@@ -26,104 +31,130 @@ function initProgressiveImages() {
       lqCount++;
       if (lqCount === imgs.length) startHQ();
     };
+
     if (img.complete) {
       onLqLoaded();
     } else {
-      img.addEventListener('load', onLqLoaded, { once: true });
+      img.addEventListener('load',  onLqLoaded, { once: true });
       img.addEventListener('error', onLqLoaded, { once: true });
     }
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// ─── Render home page project grid from projects.json ───
+async function renderHomepage() {
+  const main = document.querySelector('.projects-section');
+  if (!main) return;
 
-  // ─── Year in footer ───
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // ─── Populate overlay details from PROJECTS data ───
-  if (typeof PROJECTS !== 'undefined') {
-    document.querySelectorAll('.project').forEach(article => {
-      const link = article.querySelector('.project-link');
-      if (!link) return;
-      const href = link.getAttribute('href');
-      const id = new URLSearchParams(href.split('?')[1]).get('id');
-      const data = PROJECTS[id];
-      if (!data) return;
-      const titleEl = article.querySelector('.project-title');
-      if (titleEl) titleEl.textContent = data.title;
-      const detailsEl = article.querySelector('.project-details');
-      if (!detailsEl) return;
-      const parts = [];
-      if (data.director) parts.push(`Dir. ${data.director}`);
-      if (data.producer) parts.push(`Prod. ${data.producer}`);
-      detailsEl.textContent = parts.join(' | ');
-    });
+  let projects;
+  try {
+    const res = await fetch('/data/projects.json');
+    if (!res.ok) throw new Error(res.status);
+    projects = await res.json();
+  } catch (err) {
+    main.innerHTML = '<p style="padding:40px;color:#888">Failed to load projects.</p>';
+    return;
   }
 
-  // ─── Mobile burger menu ───
-  const burger = document.querySelector('.nav-burger');
-  const navLinks = document.querySelector('.nav-links');
+  projects.forEach(p => {
+    const details = [
+      p.director ? 'Dir. ' + p.director : '',
+      p.producer ? 'Prod. ' + p.producer : '',
+    ].filter(Boolean).join(' | ');
 
-  if (burger && navLinks) {
-    burger.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      burger.setAttribute('aria-expanded', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-
-    // Close menu when a link is clicked
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        document.body.style.overflow = '';
-      });
-    });
-  }
-
-  // ─── Category filter ───
-  const navItems = document.querySelectorAll('.nav-item[data-filter]');
-  const projects = document.querySelectorAll('.project[data-category]');
-
-  if (navItems.length && projects.length) {
-    let activeFilter = 'all';
-
-    const applyFilter = (filter) => {
-      activeFilter = filter;
-      projects.forEach(project => {
-        const match = filter === 'all' || project.dataset.category === filter;
-        project.classList.toggle('hidden', !match);
-      });
-
-      navItems.forEach(item => {
-        item.classList.toggle('active', item.dataset.filter === filter);
-      });
-    };
-
-    navItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        applyFilter(item.dataset.filter);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-
-    // Logo click — clear filter and deselect all nav items
-    const logo = document.querySelector('.nav-logo');
-    if (logo) {
-      logo.addEventListener('click', (e) => {
-        e.preventDefault();
-        applyFilter('all');
-        navItems.forEach(item => item.classList.remove('active'));
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-
-    // Set initial filter from URL hash (e.g. #music-videos)
-    const hashFilter = window.location.hash.replace('#', '');
-    if (hashFilter) applyFilter(hashFilter);
-  }
+    main.insertAdjacentHTML('beforeend', `
+      <article class="project" data-category="${esc(p.category)}">
+        <a href="projects/project.html?id=${esc(p.id)}" class="project-link">
+          <div class="project-stills">
+            ${p.stills.map((src, i) => `
+              <div class="still">
+                <img class="lq"
+                     loading="${i === 0 ? 'eager' : 'lazy'}"
+                     src="${esc(src.replace('.webp', '-lq.webp'))}"
+                     data-hq="${esc(src)}"
+                     alt="${esc(p.title)} — still ${i + 1}" />
+              </div>`).join('')}
+          </div>
+          <div class="project-overlay">
+            <span class="project-title">${esc(p.title)}</span>
+            <span class="project-details">${esc(details)}</span>
+          </div>
+        </a>
+      </article>`);
+  });
 
   initProgressiveImages();
 
+  // Re-apply active category filter after render
+  const activeItem = document.querySelector('.nav-item[data-filter].active');
+  if (activeItem) applyFilter(activeItem.dataset.filter);
+}
+
+// ─── Category filter ───
+let applyFilter = () => {};
+
+function initCategoryFilter() {
+  const navItems = document.querySelectorAll('.nav-item[data-filter]');
+  if (!navItems.length) return;
+
+  applyFilter = (filter) => {
+    document.querySelectorAll('.project[data-category]').forEach(project => {
+      const match = filter === 'all' || project.dataset.category === filter;
+      project.classList.toggle('hidden', !match);
+    });
+    navItems.forEach(item => {
+      item.classList.toggle('active', item.dataset.filter === filter);
+    });
+  };
+
+  navItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      applyFilter(item.dataset.filter);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  const logo = document.querySelector('.nav-logo');
+  if (logo) {
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      applyFilter('all');
+      navItems.forEach(item => item.classList.remove('active'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  const hashFilter = window.location.hash.replace('#', '');
+  if (hashFilter) applyFilter(hashFilter);
+}
+
+// ─── Mobile burger menu ───
+function initBurgerMenu() {
+  const burger   = document.querySelector('.nav-burger');
+  const navLinks = document.querySelector('.nav-links');
+  if (!burger || !navLinks) return;
+
+  burger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
+// ─── Boot ───
+document.addEventListener('DOMContentLoaded', async () => {
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  initBurgerMenu();
+  initCategoryFilter();
+  await renderHomepage();
 });
