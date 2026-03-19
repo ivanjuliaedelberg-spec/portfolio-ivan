@@ -2,7 +2,7 @@ const formidable = require('formidable').default || require('formidable');
 const fs         = require('fs');
 const sharp      = require('sharp');
 const { requireAuth } = require('./_lib/verify-jwt');
-const { putFile }     = require('./_lib/github');
+const { putFile, getFile } = require('./_lib/github');
 
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
 
@@ -55,8 +55,9 @@ module.exports = async function handler(req, res) {
   const lqPath = `assets/images/${projectId}/still-${n}-lq.webp`;
 
   try {
-    await putFile(hqPath, hqBuffer, `admin: upload ${projectId} still-${n}`);
-    await putFile(lqPath, lqBuffer, `admin: upload ${projectId} still-${n} lq`);
+    const [existingHq, existingLq] = await Promise.all([getFile(hqPath), getFile(lqPath)]);
+    await putFile(hqPath, hqBuffer, `admin: upload ${projectId} still-${n}`, existingHq?.sha);
+    await putFile(lqPath, lqBuffer, `admin: upload ${projectId} still-${n} lq`, existingLq?.sha);
   } catch (err) {
     if (err.conflict) return res.status(409).json({ error: 'Conflict — please try again' });
     throw err;
