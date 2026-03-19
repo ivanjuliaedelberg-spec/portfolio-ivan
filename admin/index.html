@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Ivan Julia</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a; --surface: #111111; --surface2: #1a1a1a;
+      --border: #2a2a2a; --text: #ffffff; --muted: #666666;
+      --danger: #ff4444; --success: #44cc88;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 14px; min-height: 100vh; }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      display: flex; align-items: center; justify-content: center; min-height: 100vh;
+    }
+    .login-box { width: 320px; }
+    .login-logo { font-size: 13px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 32px; }
+    .login-logo span { color: var(--muted); font-weight: 300; }
+    .form-label { display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .form-input { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 13px; padding: 11px 14px; outline: none; transition: border-color 0.15s; }
+    .form-input:focus { border-color: #555; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; font-family: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border: none; transition: opacity 0.2s; width: 100%; margin-top: 12px; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-ghost { background: none; border: 1px solid var(--border); color: var(--muted); }
+    .btn-ghost:hover:not(:disabled) { color: var(--text); border-color: #555; }
+    .error-msg { color: var(--danger); font-size: 12px; margin-top: 10px; min-height: 18px; }
+
+    /* ── LAYOUT ── */
+    #dashboard { display: none; flex-direction: column; min-height: 100vh; }
+    .admin-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 32px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .admin-logo { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+    .admin-logo span { color: var(--muted); font-weight: 300; }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .save-order-btn { display: none; background: var(--text); color: var(--bg); border: none; font-family: inherit; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 16px; cursor: pointer; }
+    .save-order-btn.visible { display: inline-block; }
+    .logout-btn-header { background: none; border: 1px solid var(--border); color: var(--muted); font-family: inherit; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; cursor: pointer; }
+    .logout-btn-header:hover { color: var(--text); border-color: #555; }
+    .admin-body { display: flex; flex: 1; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { width: 200px; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 0; flex-shrink: 0; }
+    .sidebar-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; padding: 0 20px; }
+    .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; cursor: pointer; color: var(--muted); font-size: 13px; transition: background 0.15s, color 0.15s; }
+    .sidebar-item:hover { background: var(--surface2); color: var(--text); }
+    .sidebar-item.active { background: var(--surface2); color: var(--text); }
+    .sidebar-item .count { margin-left: auto; font-size: 11px; }
+
+    /* ── MAIN ── */
+    .main { flex: 1; padding: 32px; overflow-y: auto; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .page-title { font-size: 18px; font-weight: 400; letter-spacing: 0.04em; }
+    .page-subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .btn-sm { padding: 9px 18px; font-size: 11px; width: auto; margin-top: 0; }
+
+    /* ── PROJECT LIST ── */
+    .project-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 40px; }
+    .list-header { display: grid; grid-template-columns: 80px 1fr 120px 36px 36px; gap: 12px; align-items: center; padding: 0 16px 8px; }
+    .list-header span { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .project-row { display: grid; grid-template-columns: 80px 1fr 120px 36px 36px; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--border); padding: 10px 16px; transition: border-color 0.15s; }
+    .project-row:hover { border-color: #3a3a3a; }
+    .project-thumb { width: 80px; height: 45px; background: var(--surface2); border: 1px solid var(--border); overflow: hidden; }
+    .project-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+    .project-name { font-size: 13px; }
+    .project-id { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: monospace; }
+    .badge { display: inline-block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--muted); }
+    .reorder-btns { display: flex; flex-direction: column; gap: 2px; }
+    .reorder-btn { background: none; border: none; color: #444; cursor: pointer; font-size: 12px; line-height: 1; padding: 2px 4px; transition: color 0.15s; }
+    .reorder-btn:hover { color: var(--text); }
+    .del-btn { background: none; border: none; color: #333; cursor: pointer; font-size: 18px; transition: color 0.15s; }
+    .del-btn:hover { color: var(--danger); }
+
+    /* ── ADD FORM ── */
+    .form-card { background: var(--surface); border: 1px solid var(--border); padding: 28px; }
+    .form-card-title { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-input-inline { background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 13px; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; }
+    .form-input-inline:focus { border-color: #555; }
+    .form-input-inline.error-field { border-color: var(--danger); }
+    .form-select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 13px; padding: 10px 12px; outline: none; appearance: none; width: 100%; cursor: pointer; }
+    .stills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .still-slot { aspect-ratio: 16/9; background: var(--surface2); border: 1px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; transition: border-color 0.15s; }
+    .still-slot:hover { border-color: #555; }
+    .still-slot.uploaded { border-style: solid; border-color: var(--success); }
+    .still-slot.uploading { opacity: 0.6; pointer-events: none; }
+    .still-slot.slot-error { border-color: var(--danger); }
+    .still-slot img { width: 100%; height: 100%; object-fit: cover; }
+    .still-slot .slot-label { font-size: 11px; color: var(--muted); }
+    .still-slot .slot-icon { font-size: 20px; color: #333; margin-bottom: 6px; }
+    .still-slot input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .still-slot .slot-status { position: absolute; bottom: 6px; font-size: 10px; }
+    .still-slot.uploaded .slot-status { color: var(--success); }
+    .still-slot.slot-error .slot-status { color: var(--danger); }
+    .form-actions { display: flex; justify-content: flex-end; gap: 12px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .field-error { color: var(--danger); font-size: 11px; margin-top: 4px; }
+
+    /* ── TOAST ── */
+    #toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border); padding: 12px 20px; font-size: 13px; display: none; z-index: 100; }
+    #toast.error { border-color: var(--danger); color: var(--danger); }
+    #toast.success { border-color: var(--success); color: var(--success); }
+
+    /* ── STATUS BAR ── */
+    .status-bar { background: var(--surface); border-top: 1px solid var(--border); padding: 10px 32px; display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">IVAN JULIA <span>— Admin</span></div>
+    <label class="form-label" for="pw-input">Password</label>
+    <input id="pw-input" class="form-input" type="password" autocomplete="current-password" />
+    <button id="login-btn" class="btn btn-primary">Enter</button>
+    <div id="login-error" class="error-msg"></div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div id="dashboard">
+  <header class="admin-header">
+    <div class="admin-logo">IVAN JULIA <span>— Admin</span></div>
+    <div class="header-actions">
+      <button id="save-order-btn" class="save-order-btn">Save Order</button>
+      <button id="logout-btn" class="logout-btn-header">Log out</button>
+    </div>
+  </header>
+
+  <div class="admin-body">
+    <aside class="sidebar">
+      <div style="padding: 0 0 12px;">
+        <div class="sidebar-label">Projects</div>
+        <div class="sidebar-item active" data-filter="all">All <span class="count" id="count-all">0</span></div>
+        <div class="sidebar-item" data-filter="music-videos">Music Videos <span class="count" id="count-mv">0</span></div>
+        <div class="sidebar-item" data-filter="commercials">Commercials <span class="count" id="count-comm">0</span></div>
+        <div class="sidebar-item" data-filter="narrative">Narrative <span class="count" id="count-narr">0</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Projects</div>
+          <div class="page-subtitle">Manage and add portfolio projects</div>
+        </div>
+        <button id="show-form-btn" class="btn btn-primary btn-sm">+ Add Project</button>
+      </div>
+
+      <!-- Project list -->
+      <div id="project-list" class="project-list">
+        <div class="list-header">
+          <span></span><span>Title</span><span>Category</span><span></span><span></span>
+        </div>
+      </div>
+
+      <!-- Add project form (hidden by default) -->
+      <div id="add-form" class="form-card hidden">
+        <div class="form-card-title">Add New Project</div>
+
+        <div style="margin-bottom:8px"><div class="form-label">Stills (3 images)</div></div>
+        <div class="stills-grid">
+          <div class="still-slot" id="slot-1">
+            <input type="file" accept="image/*" data-index="1" />
+            <div class="slot-icon">↑</div>
+            <div class="slot-label">Still 1</div>
+            <div class="slot-status"></div>
+          </div>
+          <div class="still-slot" id="slot-2">
+            <input type="file" accept="image/*" data-index="2" />
+            <div class="slot-icon">↑</div>
+            <div class="slot-label">Still 2</div>
+            <div class="slot-status"></div>
+          </div>
+          <div class="still-slot" id="slot-3">
+            <input type="file" accept="image/*" data-index="3" />
+            <div class="slot-icon">↑</div>
+            <div class="slot-label">Still 3</div>
+            <div class="slot-status"></div>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label" for="f-title">Title</label>
+            <input id="f-title" class="form-input-inline" type="text" placeholder="e.g. Trueno - Violento" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-id">Project ID</label>
+            <input id="f-id" class="form-input-inline" type="text" placeholder="auto-generated" />
+            <div class="field-error" id="id-error"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-category">Category</label>
+            <select id="f-category" class="form-select">
+              <option value="music-videos" data-label="Music Video">Music Video</option>
+              <option value="commercials"  data-label="Commercial">Commercial</option>
+              <option value="narrative"    data-label="Narrative">Narrative</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-director">Director</label>
+            <input id="f-director" class="form-input-inline" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-producer">Producer</label>
+            <input id="f-producer" class="form-input-inline" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-dop">DOP</label>
+            <input id="f-dop" class="form-input-inline" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-year">Year</label>
+            <input id="f-year" class="form-input-inline" type="text" placeholder="2025" />
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="f-vimeo">Vimeo ID</label>
+            <input id="f-vimeo" class="form-input-inline" type="text" placeholder="e.g. 1087538165" />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button id="cancel-form-btn" class="btn btn-ghost btn-sm">Cancel</button>
+          <button id="publish-btn" class="btn btn-primary btn-sm" disabled>Upload & Publish</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-dot"></div>
+    Connected to GitHub
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ── Helpers ─────────────────────────────────────────────────────────────── */
+const $  = id => document.getElementById(id);
+const qs = sel => document.querySelector(sel);
+
+function showToast(msg, type = 'error') {
+  const t = $('toast');
+  t.innerHTML     = msg; // innerHTML allows retry buttons to render
+  t.className     = type;
+  t.style.display = 'block';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.display = 'none'; }, 4000);
+}
+
+function slugify(str) {
+  return str.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove accents
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim().replace(/\s+/g, '-');
+}
+
+/* ── State ───────────────────────────────────────────────────────────────── */
+let allProjects    = [];
+let activeFilter   = 'all';
+let uploadedStills = { 1: null, 2: null, 3: null }; // { hq, lq } per slot
+let orderDirty     = false;
+
+/* ── Login ───────────────────────────────────────────────────────────────── */
+$('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+$('login-btn').addEventListener('click', doLogin);
+
+async function doLogin() {
+  const pw  = $('pw-input').value;
+  const btn = $('login-btn');
+  btn.disabled = true;
+  btn.textContent = '…';
+  $('login-error').textContent = '';
+
+  const res = await fetch('/api/auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pw }),
+  });
+
+  if (res.ok) {
+    $('login-screen').style.display = 'none';
+    $('dashboard').style.display    = 'flex';
+    loadProjects();
+  } else {
+    $('login-error').textContent = 'Incorrect password';
+    btn.disabled    = false;
+    btn.textContent = 'Enter';
+  }
+}
+
+/* ── Logout ──────────────────────────────────────────────────────────────── */
+$('logout-btn').addEventListener('click', async () => {
+  await fetch('/api/logout', { method: 'POST' });
+  location.reload();
+});
+
+/* ── Load + render project list ─────────────────────────────────────────── */
+async function loadProjects() {
+  const res = await fetch('/data/projects.json');
+  allProjects = await res.json();
+  renderList();
+  updateCounts();
+}
+
+function updateCounts() {
+  $('count-all').textContent  = allProjects.length;
+  $('count-mv').textContent   = allProjects.filter(p => p.category === 'music-videos').length;
+  $('count-comm').textContent = allProjects.filter(p => p.category === 'commercials').length;
+  $('count-narr').textContent = allProjects.filter(p => p.category === 'narrative').length;
+}
+
+function renderList() {
+  const list = $('project-list');
+  // Remove all rows except header
+  Array.from(list.querySelectorAll('.project-row')).forEach(r => r.remove());
+
+  const visible = activeFilter === 'all'
+    ? allProjects
+    : allProjects.filter(p => p.category === activeFilter);
+
+  visible.forEach((p, i) => {
+    const globalIdx = allProjects.indexOf(p);
+    const row = document.createElement('div');
+    row.className  = 'project-row';
+    row.dataset.id = p.id;
+
+    const imgSrc = p.stills[0] || '';
+    row.innerHTML = `
+      <div class="project-thumb">${imgSrc ? `<img src="${imgSrc}" alt="" />` : ''}</div>
+      <div>
+        <div class="project-name">${p.title}</div>
+        <div class="project-id">${p.id}</div>
+      </div>
+      <span class="badge">${p.categoryLabel}</span>
+      <div class="reorder-btns">
+        <button class="reorder-btn up-btn" data-idx="${globalIdx}" title="Move up">▲</button>
+        <button class="reorder-btn dn-btn" data-idx="${globalIdx}" title="Move down">▼</button>
+      </div>
+      <button class="del-btn" data-id="${p.id}" title="Delete">×</button>`;
+
+    row.querySelector('.up-btn').addEventListener('click', () => moveProject(globalIdx, -1));
+    row.querySelector('.dn-btn').addEventListener('click', () => moveProject(globalIdx,  1));
+    row.querySelector('.del-btn').addEventListener('click', () => deleteProject(p.id));
+
+    list.appendChild(row);
+  });
+}
+
+/* ── Sidebar filter ──────────────────────────────────────────────────────── */
+document.querySelectorAll('.sidebar-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    activeFilter = item.dataset.filter;
+    renderList();
+  });
+});
+
+/* ── Reorder ─────────────────────────────────────────────────────────────── */
+function moveProject(idx, direction) {
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= allProjects.length) return;
+  [allProjects[idx], allProjects[newIdx]] = [allProjects[newIdx], allProjects[idx]];
+  orderDirty = true;
+  $('save-order-btn').classList.add('visible');
+  renderList();
+}
+
+$('save-order-btn').addEventListener('click', saveOrder);
+
+async function saveOrder() {
+  const btn = $('save-order-btn');
+  btn.textContent = 'Saving…';
+  btn.disabled    = true;
+
+  const res = await fetch('/api/projects/reorder', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ids: allProjects.map(p => p.id) }),
+  });
+
+  if (res.ok) {
+    showToast('Order saved. Deploying (~30s)…', 'success');
+    btn.textContent = 'Save Order';
+    btn.disabled    = false;
+    btn.classList.remove('visible');
+    orderDirty = false;
+  } else {
+    const err = await res.json();
+    showToast((err.error || 'Error saving order') + ' — <button onclick="saveOrder()" style="color:inherit;background:none;border:none;text-decoration:underline;cursor:pointer;font:inherit">Retry</button>');
+    btn.textContent = 'Save Order';
+    btn.disabled    = false;
+  }
+}
+
+/* ── Delete ──────────────────────────────────────────────────────────────── */
+async function deleteProject(id) {
+  if (!confirm(`Delete "${id}"? This cannot be undone.`)) return;
+
+  const res = await fetch('/api/projects', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id }),
+  });
+
+  if (res.ok) {
+    allProjects = allProjects.filter(p => p.id !== id);
+    renderList();
+    updateCounts();
+    showToast('Deleted. Deploying (~30s)…', 'success');
+  } else {
+    const err = await res.json();
+    showToast((err.error || 'Error deleting project') + ' — <button onclick="deleteProject(\'' + id + '\')" style="color:inherit;background:none;border:none;text-decoration:underline;cursor:pointer;font:inherit">Retry</button>');
+  }
+}
+
+/* ── Add form ────────────────────────────────────────────────────────────── */
+$('show-form-btn').addEventListener('click', () => {
+  $('add-form').classList.remove('hidden');
+  $('show-form-btn').classList.add('hidden');
+});
+$('cancel-form-btn').addEventListener('click', resetForm);
+
+function resetForm() {
+  $('add-form').classList.add('hidden');
+  $('show-form-btn').classList.remove('hidden');
+  ['f-title','f-id','f-director','f-producer','f-dop','f-year','f-vimeo'].forEach(id => $(id).value = '');
+  uploadedStills = { 1: null, 2: null, 3: null };
+  [1,2,3].forEach(resetSlot);
+  $('publish-btn').disabled = true;
+  $('id-error').textContent = '';
+}
+
+/* ── Title → ID auto-generate ────────────────────────────────────────────── */
+$('f-title').addEventListener('input', () => {
+  $('f-id').value = slugify($('f-title').value);
+  $('id-error').textContent = '';
+});
+
+/* ── Image upload slots ──────────────────────────────────────────────────── */
+function resetSlot(n) {
+  const slot = $(`slot-${n}`);
+  slot.className = 'still-slot';
+  slot.querySelector('img')?.remove();
+  slot.querySelector('.slot-icon').style.display  = '';
+  slot.querySelector('.slot-label').style.display = '';
+  slot.querySelector('.slot-status').textContent  = '';
+}
+
+[1,2,3].forEach(n => {
+  $(`slot-${n}`).querySelector('input').addEventListener('change', async function() {
+    const file = this.files[0];
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      const slot = $(`slot-${n}`);
+      slot.classList.add('slot-error');
+      slot.querySelector('.slot-status').textContent = 'Too large (max 10 MB)';
+      return;
+    }
+
+    const projectId = $('f-id').value.trim();
+    if (!projectId) {
+      showToast('Enter a Project ID before uploading images');
+      return;
+    }
+
+    const slot = $(`slot-${n}`);
+    slot.classList.add('uploading');
+    slot.querySelector('.slot-status').textContent = 'Uploading…';
+
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('projectId', projectId);
+    fd.append('index', String(n));
+
+    const res = await fetch('/api/upload', { method: 'POST', body: fd });
+
+    if (res.ok) {
+      const { hq, lq } = await res.json();
+      uploadedStills[n] = { hq, lq };
+      slot.classList.remove('uploading');
+      slot.classList.add('uploaded');
+      slot.querySelector('.slot-icon').style.display  = 'none';
+      slot.querySelector('.slot-label').style.display = 'none';
+      slot.querySelector('.slot-status').textContent  = '✓ Uploaded';
+
+      // Preview
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+      slot.insertBefore(img, slot.firstChild);
+
+      checkPublishReady();
+    } else {
+      const err = await res.json();
+      slot.classList.remove('uploading');
+      slot.classList.add('slot-error');
+      slot.querySelector('.slot-status').textContent = err.error || `Upload failed for Still ${n} — please re-upload before publishing`;
+    }
+  });
+});
+
+function checkPublishReady() {
+  const allDone = [1,2,3].every(n => uploadedStills[n] !== null);
+  $('publish-btn').disabled = !allDone;
+}
+
+/* ── Publish ─────────────────────────────────────────────────────────────── */
+$('publish-btn').addEventListener('click', async () => {
+  const id = $('f-id').value.trim();
+  if (!id) { $('id-error').textContent = 'Project ID is required'; return; }
+  $('id-error').textContent = '';
+
+  const categorySelect = $('f-category');
+  const categoryLabel  = categorySelect.options[categorySelect.selectedIndex].dataset.label;
+
+  const project = {
+    id,
+    title:         $('f-title').value.trim(),
+    categoryLabel,
+    category:      categorySelect.value,
+    director:      $('f-director').value.trim(),
+    producer:      $('f-producer').value.trim(),
+    dop:           $('f-dop').value.trim(),
+    secdirector:   '',
+    secdop:        '',
+    year:          $('f-year').value.trim(),
+    vimeoId:       $('f-vimeo').value.trim(),
+    stills: [uploadedStills[1].hq, uploadedStills[2].hq, uploadedStills[3].hq],
+  };
+
+  const btn = $('publish-btn');
+  btn.disabled    = true;
+  btn.textContent = 'Publishing…';
+
+  const res = await fetch('/api/projects', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(project),
+  });
+
+  if (res.ok) {
+    showToast('Published! Deploying (~30s)…', 'success');
+    allProjects.push(project);
+    renderList();
+    updateCounts();
+    resetForm();
+  } else {
+    const err = await res.json();
+    if (res.status === 409 && err.error.includes('already exists')) {
+      $('f-id').classList.add('error-field');
+      $('id-error').textContent = 'ID already taken — edit it';
+    } else {
+      showToast(err.error || 'Error publishing project');
+    }
+    btn.disabled    = false;
+    btn.textContent = 'Upload & Publish';
+  }
+});
+</script>
+</body>
+</html>
