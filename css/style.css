@@ -155,6 +155,7 @@ img {
 .project-link {
   display: block;
   position: relative;
+  overflow: hidden;
 }
 
 /* 3 stills side by side */
@@ -476,7 +477,6 @@ img {
   }
 
   .project-overlay {
-    overflow: hidden;
     gap: 8px;
   }
 
