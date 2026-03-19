@@ -1,23 +1,5 @@
 [
   {
-    "id": "lauryn",
-    "title": "Trueno - Lauryn",
-    "categoryLabel": "Music Video",
-    "category": "music-videos",
-    "director": "Lautaro Furiolo",
-    "producer": "Rebolución",
-    "dop": "",
-    "secdirector": "",
-    "secdop": "",
-    "year": "",
-    "vimeoId": "1087432295",
-    "stills": [
-      "/assets/images/lauryn/still-1.webp",
-      "/assets/images/lauryn/still-2.webp",
-      "/assets/images/lauryn/still-3.webp"
-    ]
-  },
-  {
     "id": "violento",
     "title": "Trueno - Violento",
     "categoryLabel": "Music Video",
@@ -33,6 +15,24 @@
       "/assets/images/violento/still-1.webp",
       "/assets/images/violento/still-2.webp",
       "/assets/images/violento/still-3.webp"
+    ]
+  },
+  {
+    "id": "lauryn",
+    "title": "Trueno - Lauryn",
+    "categoryLabel": "Music Video",
+    "category": "music-videos",
+    "director": "Lautaro Furiolo",
+    "producer": "Rebolución",
+    "dop": "",
+    "secdirector": "",
+    "secdop": "",
+    "year": "",
+    "vimeoId": "1087432295",
+    "stills": [
+      "/assets/images/lauryn/still-1.webp",
+      "/assets/images/lauryn/still-2.webp",
+      "/assets/images/lauryn/still-3.webp"
     ]
   },
   {
