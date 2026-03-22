@@ -71,4 +71,68 @@ async function fileExists(filePath) {
   return res.status === 200;
 }
 
-module.exports = { buildFileUrl, encodeContent, getFile, putFile, fileExists };
+/**
+ * Commit multiple files in a single GitHub commit using the Git Trees API.
+ * files: Array of { path: string, content: Buffer|string }
+ * Throws with { conflict: true } if the branch has advanced (race condition).
+ */
+async function batchCommit(files, message) {
+  const headers = githubHeaders();
+  const base    = `https://api.github.com/repos/${process.env.GITHUB_REPO}`;
+  const branch  = process.env.GITHUB_BRANCH;
+
+  // 1. Get current branch tip
+  const refRes = await fetch(`${base}/git/refs/heads/${branch}`, { headers });
+  if (!refRes.ok) throw new Error(`GitHub ref GET failed: ${refRes.status}`);
+  const currentCommitSha = (await refRes.json()).object.sha;
+
+  // 2. Get base tree SHA from current commit
+  const commitRes = await fetch(`${base}/git/commits/${currentCommitSha}`, { headers });
+  if (!commitRes.ok) throw new Error(`GitHub commit GET failed: ${commitRes.status}`);
+  const baseTreeSha = (await commitRes.json()).tree.sha;
+
+  // 3. Create blobs for every file (in parallel)
+  const treeItems = await Promise.all(files.map(async ({ path, content }) => {
+    const blobRes = await fetch(`${base}/git/blobs`, {
+      method:  'POST',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ content: encodeContent(content), encoding: 'base64' }),
+    });
+    if (!blobRes.ok) throw new Error(`GitHub blob POST failed: ${blobRes.status}`);
+    const { sha } = await blobRes.json();
+    return { path, mode: '100644', type: 'blob', sha };
+  }));
+
+  // 4. Create new tree
+  const treeRes = await fetch(`${base}/git/trees`, {
+    method:  'POST',
+    headers: { ...headers, 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ base_tree: baseTreeSha, tree: treeItems }),
+  });
+  if (!treeRes.ok) throw new Error(`GitHub tree POST failed: ${treeRes.status}`);
+  const newTreeSha = (await treeRes.json()).sha;
+
+  // 5. Create commit
+  const newCommitRes = await fetch(`${base}/git/commits`, {
+    method:  'POST',
+    headers: { ...headers, 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ message, tree: newTreeSha, parents: [currentCommitSha] }),
+  });
+  if (!newCommitRes.ok) throw new Error(`GitHub commit POST failed: ${newCommitRes.status}`);
+  const newCommitSha = (await newCommitRes.json()).sha;
+
+  // 6. Update branch ref
+  const updateRes = await fetch(`${base}/git/refs/heads/${branch}`, {
+    method:  'PATCH',
+    headers: { ...headers, 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ sha: newCommitSha }),
+  });
+  if (updateRes.status === 409 || updateRes.status === 422) {
+    const err = new Error('GitHub conflict');
+    err.conflict = true;
+    throw err;
+  }
+  if (!updateRes.ok) throw new Error(`GitHub ref PATCH failed: ${updateRes.status}`);
+}
+
+module.exports = { buildFileUrl, encodeContent, getFile, putFile, fileExists, batchCommit };

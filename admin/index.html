@@ -266,10 +266,10 @@ function slugify(str) {
 }
 
 /* ── State ───────────────────────────────────────────────────────────────── */
-let allProjects    = [];
-let activeFilter   = 'all';
-let uploadedStills = { 1: null, 2: null, 3: null }; // { hq, lq } per slot
-let orderDirty     = false;
+let allProjects  = [];
+let activeFilter = 'all';
+let selectedFiles = { 1: null, 2: null, 3: null }; // File objects, not yet uploaded
+let orderDirty   = false;
 
 /* ── Login ───────────────────────────────────────────────────────────────── */
 $('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
@@ -436,7 +436,7 @@ function resetForm() {
   $('add-form').classList.add('hidden');
   $('show-form-btn').classList.remove('hidden');
   ['f-title','f-id','f-director','f-producer','f-dop','f-year','f-vimeo'].forEach(id => $(id).value = '');
-  uploadedStills = { 1: null, 2: null, 3: null };
+  selectedFiles = { 1: null, 2: null, 3: null };
   [1,2,3].forEach(resetSlot);
   $('publish-btn').disabled = true;
   $('id-error').textContent = '';
@@ -448,7 +448,7 @@ $('f-title').addEventListener('input', () => {
   $('id-error').textContent = '';
 });
 
-/* ── Image upload slots ──────────────────────────────────────────────────── */
+/* ── Image upload slots — store locally, no upload until publish ─────────── */
 function resetSlot(n) {
   const slot = $(`slot-${n}`);
   slot.className = 'still-slot';
@@ -456,10 +456,13 @@ function resetSlot(n) {
   slot.querySelector('.slot-icon').style.display  = '';
   slot.querySelector('.slot-label').style.display = '';
   slot.querySelector('.slot-status').textContent  = '';
+  // reset the file input so the same file can be re-selected
+  const input = slot.querySelector('input');
+  input.value = '';
 }
 
 [1,2,3].forEach(n => {
-  $(`slot-${n}`).querySelector('input').addEventListener('change', async function() {
+  $(`slot-${n}`).querySelector('input').addEventListener('change', function() {
     const file = this.files[0];
     if (!file) return;
 
@@ -467,57 +470,37 @@ function resetSlot(n) {
       const slot = $(`slot-${n}`);
       slot.classList.add('slot-error');
       slot.querySelector('.slot-status').textContent = 'Too large (max 10 MB)';
+      selectedFiles[n] = null;
+      checkPublishReady();
       return;
     }
 
-    const projectId = $('f-id').value.trim();
-    if (!projectId) {
-      showToast('Enter a Project ID before uploading images');
-      return;
-    }
+    selectedFiles[n] = file;
 
     const slot = $(`slot-${n}`);
-    slot.classList.add('uploading');
-    slot.querySelector('.slot-status').textContent = 'Uploading…';
+    slot.classList.remove('slot-error');
+    slot.classList.add('uploaded');
+    slot.querySelector('.slot-icon').style.display  = 'none';
+    slot.querySelector('.slot-label').style.display = 'none';
+    slot.querySelector('.slot-status').textContent  = '✓ Ready';
 
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('projectId', projectId);
-    fd.append('index', String(n));
+    // Show local preview immediately
+    slot.querySelector('img')?.remove();
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+    slot.insertBefore(img, slot.firstChild);
 
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-
-    if (res.ok) {
-      const { hq, lq } = await res.json();
-      uploadedStills[n] = { hq, lq };
-      slot.classList.remove('uploading');
-      slot.classList.add('uploaded');
-      slot.querySelector('.slot-icon').style.display  = 'none';
-      slot.querySelector('.slot-label').style.display = 'none';
-      slot.querySelector('.slot-status').textContent  = '✓ Uploaded';
-
-      // Preview
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(file);
-      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
-      slot.insertBefore(img, slot.firstChild);
-
-      checkPublishReady();
-    } else {
-      const err = await res.json();
-      slot.classList.remove('uploading');
-      slot.classList.add('slot-error');
-      slot.querySelector('.slot-status').textContent = err.error || `Upload failed for Still ${n} — please re-upload before publishing`;
-    }
+    checkPublishReady();
   });
 });
 
 function checkPublishReady() {
-  const allDone = [1,2,3].every(n => uploadedStills[n] !== null);
-  $('publish-btn').disabled = !allDone;
+  const allReady = [1,2,3].every(n => selectedFiles[n] !== null);
+  $('publish-btn').disabled = !allReady;
 }
 
-/* ── Publish ─────────────────────────────────────────────────────────────── */
+/* ── Publish — upload all images + metadata in one commit ────────────────── */
 $('publish-btn').addEventListener('click', async () => {
   const id = $('f-id').value.trim();
   if (!id) { $('id-error').textContent = 'Project ID is required'; return; }
@@ -526,32 +509,30 @@ $('publish-btn').addEventListener('click', async () => {
   const categorySelect = $('f-category');
   const categoryLabel  = categorySelect.options[categorySelect.selectedIndex].dataset.label;
 
-  const project = {
-    id,
-    title:         $('f-title').value.trim(),
-    categoryLabel,
-    category:      categorySelect.value,
-    director:      $('f-director').value.trim(),
-    producer:      $('f-producer').value.trim(),
-    dop:           $('f-dop').value.trim(),
-    secdirector:   '',
-    secdop:        '',
-    year:          $('f-year').value.trim(),
-    vimeoId:       $('f-vimeo').value.trim(),
-    stills: [uploadedStills[1].hq, uploadedStills[2].hq, uploadedStills[3].hq],
-  };
-
   const btn = $('publish-btn');
   btn.disabled    = true;
   btn.textContent = 'Publishing…';
 
-  const res = await fetch('/api/projects', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(project),
-  });
+  const fd = new FormData();
+  fd.append('id',            id);
+  fd.append('title',         $('f-title').value.trim());
+  fd.append('categoryLabel', categoryLabel);
+  fd.append('category',      categorySelect.value);
+  fd.append('director',      $('f-director').value.trim());
+  fd.append('producer',      $('f-producer').value.trim());
+  fd.append('dop',           $('f-dop').value.trim());
+  fd.append('secdirector',   '');
+  fd.append('secdop',        '');
+  fd.append('year',          $('f-year').value.trim());
+  fd.append('vimeoId',       $('f-vimeo').value.trim());
+  fd.append('file1', selectedFiles[1]);
+  fd.append('file2', selectedFiles[2]);
+  fd.append('file3', selectedFiles[3]);
+
+  const res = await fetch('/api/publish', { method: 'POST', body: fd });
 
   if (res.ok) {
+    const { project } = await res.json();
     showToast('Published! Deploying (~30s)…', 'success');
     allProjects.push(project);
     renderList();
