@@ -66,7 +66,7 @@ describe('POST /api/projects', () => {
       headers: { cookie: validCookie() },
       body: {
         id: 'new-project', title: 'New', categoryLabel: 'Commercial', category: 'commercials',
-        director: '', producer: '', dop: '', secdirector: '', secdop: '', year: '', vimeoId: '',
+        director: '', producer: '', dop: '', secdirector: '', secdop: '', year: '', videoUrl: '',
         stills: ['/assets/images/new-project/still-1.webp', '/assets/images/new-project/still-2.webp', '/assets/images/new-project/still-3.webp'],
       },
     };

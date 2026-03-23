@@ -94,7 +94,7 @@ for (const [id, project] of Object.entries(PROJECTS)) {
     secdirector:   project.secdirector   || '',
     secdop:        project.secdop        || '',
     year:          project.year          || '',
-    vimeoId:       project.vimeoId       || '',
+    videoUrl:      project.videoUrl      || '',
     stills:        newStills,
   });
 }

@@ -79,7 +79,7 @@ module.exports = async function handler(req, res) {
     secdirector:   get('secdirector'),
     secdop:        get('secdop'),
     year:          get('year'),
-    vimeoId:       get('vimeoId'),
+    videoUrl:      get('videoUrl'),
     stills,
   };
 

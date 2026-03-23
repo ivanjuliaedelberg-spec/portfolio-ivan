@@ -245,8 +245,8 @@
             <input id="f-year" class="form-input-inline" type="text" placeholder="2025" />
           </div>
           <div class="form-group full">
-            <label class="form-label" for="f-vimeo">Vimeo ID</label>
-            <input id="f-vimeo" class="form-input-inline" type="text" placeholder="e.g. 1087538165" />
+            <label class="form-label" for="f-video">Video URL</label>
+            <input id="f-video" class="form-input-inline" type="text" placeholder="Vimeo ID or YouTube URL" />
           </div>
         </div>
 
@@ -658,7 +658,7 @@ $('cancel-form-btn').addEventListener('click', resetForm);
 function resetForm() {
   $('add-form').classList.add('hidden');
   $('show-form-btn').classList.remove('hidden');
-  ['f-title','f-id','f-director','f-producer','f-dop','f-year','f-vimeo'].forEach(id => $(id).value = '');
+  ['f-title','f-id','f-director','f-producer','f-dop','f-year','f-video'].forEach(id => $(id).value = '');
   selectedFiles = { 1: null, 2: null, 3: null };
   [1,2,3].forEach(resetSlot);
   $('publish-btn').disabled = true;
@@ -747,7 +747,7 @@ $('publish-btn').addEventListener('click', async () => {
   fd.append('secdirector',   '');
   fd.append('secdop',        '');
   fd.append('year',          $('f-year').value.trim());
-  fd.append('vimeoId',       $('f-vimeo').value.trim());
+  fd.append('videoUrl',      $('f-video').value.trim());
   fd.append('file1', selectedFiles[1]);
   fd.append('file2', selectedFiles[2]);
   fd.append('file3', selectedFiles[3]);

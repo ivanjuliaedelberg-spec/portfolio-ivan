@@ -55,7 +55,7 @@ module.exports = async function handler(req, res) {
       secdirector:  data.secdirector  || '',
       secdop:       data.secdop       || '',
       year:         data.year         || '',
-      vimeoId:      data.vimeoId      || '',
+      videoUrl:     data.videoUrl     || '',
       stills:       data.stills,
     };
 
