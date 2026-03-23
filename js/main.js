@@ -27,33 +27,21 @@ function initProgressiveImages() {
   const imgs = Array.from(document.querySelectorAll('img.lq[data-hq]'));
   if (!imgs.length) return;
 
-  let lqCount = 0;
-
-  const startHQ = () => {
-    imgs.forEach(img => {
-      const hq = new Image();
-      hq.onload = () => {
-        img.src = hq.src;
-        img.classList.remove('lq');
-        img.classList.add('hq-ready');
-        markHqLoaded(img.dataset.hq);
-      };
-      hq.src = img.dataset.hq;
-    });
-  };
-
   imgs.forEach(img => {
-    const onLqLoaded = () => {
-      lqCount++;
-      if (lqCount === imgs.length) startHQ();
+    const hqSrc = img.dataset.hq;
+    const hq = new Image();
+
+    const upgrade = () => {
+      img.src = hqSrc;
+      img.classList.remove('lq');
+      img.classList.add('hq-ready');
+      markHqLoaded(hqSrc);
     };
 
-    if (img.complete) {
-      onLqLoaded();
-    } else {
-      img.addEventListener('load',  onLqLoaded, { once: true });
-      img.addEventListener('error', onLqLoaded, { once: true });
-    }
+    hq.onload = upgrade;
+    hq.src = hqSrc;
+    // If already in browser HTTP cache, upgrade immediately (no LQ flash)
+    if (hq.complete) upgrade();
   });
 }
 
