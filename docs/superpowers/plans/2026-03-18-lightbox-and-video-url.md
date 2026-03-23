@@ -20,10 +20,13 @@
 | `css/style.css` | Add lightbox styles at the end of the file |
 | `admin/index.html` | Rename "Vimeo ID" field to "Video URL"; update label, placeholder, field ID, and FormData key |
 | `api/publish.js` | Read `videoUrl` from form data instead of `vimeoId`; write `videoUrl` to `data/projects.json` |
+| `api/projects.js` | Rename `vimeoId` → `videoUrl` in the project object constructor (line 58) |
 
 ---
 
 ## Task 1: Migrate `vimeoId` → `videoUrl` in projects-data.js
+
+> **Note:** After a recent refactor, `project.js` now fetches project data from `/data/projects.json` at runtime rather than reading from the `PROJECTS` global in `js/projects-data.js`. This task migrates the static file for consistency, but the video embed behaviour is driven by `data/projects.json` (migrated in Task 5) and `project.js` (Task 2).
 
 **Files:**
 - Modify: `js/projects-data.js`
@@ -70,11 +73,9 @@
 
 - [ ] **Step 1: Replace the video embed block**
 
-  Find and replace the entire `// ── Video embed ──` block (lines 45–56) with:
+  Locate the block starting with `if (data.vimeoId && /^\d+\$/.test(data.vimeoId))` (search by that string). Replace the entire block with:
 
   ```js
-  // ── Video embed ──
-  const videoEl = document.getElementById('pd-video');
   const videoUrl = data.videoUrl;
   if (videoUrl) {
     let embedSrc;
@@ -91,7 +92,7 @@
     }
     videoEl.innerHTML = `
       <iframe
-        src="${embedSrc}"
+        src="${esc(embedSrc)}"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen>
       </iframe>`;
@@ -99,6 +100,8 @@
     videoEl.style.display = 'none';
   }
   ```
+
+  Note: `esc()` is already defined at the top of `project.js` — use it on `embedSrc` to prevent XSS.
 
 - [ ] **Step 2: Verify Vimeo projects still work**
 
@@ -367,6 +370,17 @@
   videoUrl:      get('videoUrl'),
   ```
 
+- [ ] **Step 4b: Update api/projects.js to use videoUrl**
+
+  Find the project object construction (around line 58):
+  ```js
+  vimeoId:      data.vimeoId      || '',
+  ```
+  Replace with:
+  ```js
+  videoUrl:     data.videoUrl     || '',
+  ```
+
 - [ ] **Step 5: Migrate data/projects.json**
 
   In `data/projects.json`, do a global rename of all `"vimeoId"` keys to `"videoUrl"`. Also find the `llamalo` entry and set its value:
@@ -383,6 +397,6 @@
 - [ ] **Step 7: Commit**
 
   ```bash
-  git add admin/index.html api/publish.js data/projects.json
+  git add admin/index.html api/publish.js api/projects.js data/projects.json
   git commit -m "feat: rename vimeoId to videoUrl in admin panel and API"
   ```
