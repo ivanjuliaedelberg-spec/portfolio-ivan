@@ -96,6 +96,7 @@ let applyFilter = () => {};
 function initCategoryFilter() {
   const navItems = document.querySelectorAll('.nav-item[data-filter]');
   if (!navItems.length) return;
+  if (!document.querySelector('.projects-section')) return;
 
   applyFilter = (filter) => {
     document.querySelectorAll('.project[data-category]').forEach(project => {
