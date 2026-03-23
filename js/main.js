@@ -36,7 +36,7 @@ function initProgressiveImages() {
         img.src = hq.src;
         img.classList.remove('lq');
         img.classList.add('hq-ready');
-        markHqLoaded(hq.src);
+        markHqLoaded(img.dataset.hq);
       };
       hq.src = img.dataset.hq;
     });
