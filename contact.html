@@ -31,27 +31,7 @@
     <!-- Top: bio (left) + photo (right) -->
     <div class="contact-top">
 
-      <div class="contact-bio">
-        <p>
-          Iván Juliá is an Argentinian cinematographer based between Buenos Aires and Barcelona.
-          He graduated in Cinematography from Universidad del Cine (FUC) and later completed his
-          studies with a Master's degree in Cinematography at ESCAC (Escola Superior de Cinema i
-          Audiovisuals de Catalunya).
-        </p>
-        <p>
-          His work spans advertising, music videos, and narrative filmmaking. He has collaborated
-          with international production companies such as Landia, Rebolución, and Primo on projects
-          for both local and international clients.
-        </p>
-        <p>
-          His work in music videos has also been recognized with a nomination at BAMV FEST,
-          highlighting his ability to create powerful visual identities across different formats.
-        </p>
-        <p>
-          He is particularly drawn to projects that explore the world and the intimate dimensions
-          of human existence, approaching cinematography as a way of observing, shaping, and giving
-          visual form to emotions.
-        </p>
+      <div class="contact-bio" id="bio-container">
       </div>
 
       <div class="contact-photo">
@@ -92,5 +72,17 @@
   </section>
 
   <script src="js/main.js"></script>
+  <script>
+    fetch('/data/bio.json')
+      .then(r => r.json())
+      .then(paragraphs => {
+        const container = document.getElementById('bio-container');
+        paragraphs.forEach(text => {
+          const p = document.createElement('p');
+          p.textContent = text;
+          container.appendChild(p);
+        });
+      });
+  </script>
 </body>
 </html>

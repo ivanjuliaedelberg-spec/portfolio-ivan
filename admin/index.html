@@ -110,6 +110,11 @@
     .status-bar { background: var(--surface); border-top: 1px solid var(--border); padding: 10px 32px; display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
     .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
     .hidden { display: none !important; }
+    .bio-para-row { display: flex; gap: 8px; margin-bottom: 10px; }
+    .bio-textarea { flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 13px; line-height: 1.7; padding: 10px 12px; outline: none; resize: vertical; min-height: 80px; }
+    .bio-textarea:focus { border-color: #555; }
+    .remove-para-btn { background: none; border: none; color: #333; cursor: pointer; font-size: 18px; align-self: flex-start; padding: 8px 4px; transition: color 0.15s; }
+    .remove-para-btn:hover { color: var(--danger); }
   </style>
 </head>
 <body>
@@ -143,6 +148,10 @@
         <div class="sidebar-item" data-filter="music-videos">Music Videos <span class="count" id="count-mv">0</span></div>
         <div class="sidebar-item" data-filter="commercials">Commercials <span class="count" id="count-comm">0</span></div>
         <div class="sidebar-item" data-filter="narrative">Narrative <span class="count" id="count-narr">0</span></div>
+      </div>
+      <div style="padding: 12px 0 0; border-top: 1px solid var(--border); margin-top: 12px;">
+        <div class="sidebar-label">Content</div>
+        <div class="sidebar-item" id="bio-nav-item">Bio</div>
       </div>
     </aside>
 
@@ -233,6 +242,23 @@
           <button id="publish-btn" class="btn btn-primary btn-sm" disabled>Upload & Publish</button>
         </div>
       </div>
+      <!-- Bio editor (hidden by default) -->
+      <div id="bio-section" class="hidden">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Bio</div>
+            <div class="page-subtitle">Edit the About / Contact page biography</div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div id="bio-paragraphs"></div>
+          <button id="add-paragraph-btn" class="btn btn-ghost btn-sm" style="margin-top:12px;width:auto">+ Add Paragraph</button>
+          <div class="form-actions" style="margin-top:20px">
+            <button id="save-bio-btn" class="btn btn-primary btn-sm">Save Bio</button>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 
@@ -357,14 +383,92 @@ function renderList() {
   });
 }
 
-/* ── Sidebar filter ──────────────────────────────────────────────────────── */
-document.querySelectorAll('.sidebar-item').forEach(item => {
+/* ── Sidebar navigation ──────────────────────────────────────────────────── */
+const projectsView = () => {
+  $('project-list').classList.remove('hidden');
+  $('add-form').classList.add('hidden');   // also hide add-form if open
+  $('show-form-btn').classList.remove('hidden');
+  $('bio-section').classList.add('hidden');
+};
+
+const bioView = () => {
+  $('project-list').classList.add('hidden');
+  $('add-form').classList.add('hidden');
+  $('show-form-btn').classList.add('hidden');
+  $('bio-section').classList.remove('hidden');
+  loadBio();
+};
+
+document.querySelectorAll('.sidebar-item[data-filter]').forEach(item => {
   item.addEventListener('click', () => {
     document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
     item.classList.add('active');
     activeFilter = item.dataset.filter;
+    projectsView();
     renderList();
   });
+});
+
+$('bio-nav-item').addEventListener('click', () => {
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  $('bio-nav-item').classList.add('active');
+  bioView();
+});
+
+/* ── Bio editor ──────────────────────────────────────────────────────────── */
+function addBioParagraph(text = '') {
+  const row = document.createElement('div');
+  row.className = 'bio-para-row';
+  row.innerHTML = `
+    <textarea class="bio-textarea" rows="3">${text}</textarea>
+    <button class="remove-para-btn" title="Remove paragraph">×</button>`;
+  row.querySelector('.remove-para-btn').addEventListener('click', () => row.remove());
+  $('bio-paragraphs').appendChild(row);
+}
+
+async function loadBio() {
+  const container = $('bio-paragraphs');
+  container.innerHTML = '';
+  try {
+    const res = await fetch('/data/bio.json');
+    const paragraphs = await res.json();
+    paragraphs.forEach(p => addBioParagraph(p));
+  } catch {
+    addBioParagraph('');
+  }
+}
+
+$('add-paragraph-btn').addEventListener('click', () => addBioParagraph(''));
+
+$('save-bio-btn').addEventListener('click', async () => {
+  const paragraphs = Array.from($('bio-paragraphs').querySelectorAll('.bio-textarea'))
+    .map(t => t.value.trim())
+    .filter(Boolean);
+
+  if (paragraphs.length === 0) {
+    showToast('Bio cannot be empty');
+    return;
+  }
+
+  const btn = $('save-bio-btn');
+  btn.disabled    = true;
+  btn.textContent = 'Saving…';
+
+  const res = await fetch('/api/bio', {
+    method:  'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ paragraphs }),
+  });
+
+  btn.disabled    = false;
+  btn.textContent = 'Save Bio';
+
+  if (res.ok) {
+    showToast('Bio saved. Deploying (~30s)…', 'success');
+  } else {
+    const err = await res.json();
+    showToast(err.error || 'Error saving bio');
+  }
 });
 
 /* ── Reorder ─────────────────────────────────────────────────────────────── */
