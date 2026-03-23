@@ -7,6 +7,21 @@ const esc = s => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;')
   .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+// ─── HQ image cache — persists across navigations within the session ───
+let _hqLoaded;
+function getHqCache() {
+  if (!_hqLoaded) {
+    try { _hqLoaded = new Set(JSON.parse(sessionStorage.getItem('hq-loaded') || '[]')); }
+    catch (e) { _hqLoaded = new Set(); }
+  }
+  return _hqLoaded;
+}
+function markHqLoaded(src) {
+  const cache = getHqCache();
+  cache.add(src);
+  try { sessionStorage.setItem('hq-loaded', JSON.stringify([...cache])); } catch (e) {}
+}
+
 // ─── Progressive image loading ───
 function initProgressiveImages() {
   const imgs = Array.from(document.querySelectorAll('img.lq[data-hq]'));
@@ -21,6 +36,7 @@ function initProgressiveImages() {
         img.src = hq.src;
         img.classList.remove('lq');
         img.classList.add('hq-ready');
+        markHqLoaded(hq.src);
       };
       hq.src = img.dataset.hq;
     });
@@ -66,14 +82,16 @@ async function renderHomepage() {
       <article class="project" data-category="${esc(p.category)}">
         <a href="projects/project.html?id=${esc(p.id)}" class="project-link">
           <div class="project-stills">
-            ${p.stills.map((src, i) => `
+            ${p.stills.map((src, i) => {
+              const cached = getHqCache().has(src);
+              return `
               <div class="still">
-                <img class="lq"
+                <img class="${cached ? 'hq-ready' : 'lq'}"
                      loading="${i === 0 ? 'eager' : 'lazy'}"
-                     src="${esc(src.replace('.webp', '-lq.webp'))}"
+                     src="${esc(cached ? src : src.replace('.webp', '-lq.webp'))}"
                      data-hq="${esc(src)}"
                      alt="${esc(p.title)} — still ${i + 1}" />
-              </div>`).join('')}
+              </div>`;}).join('')}
           </div>
           <div class="project-overlay">
             <span class="project-title">${esc(p.title)}</span>
