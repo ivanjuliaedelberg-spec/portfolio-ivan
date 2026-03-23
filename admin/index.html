@@ -115,6 +115,18 @@
     .bio-textarea:focus { border-color: #555; }
     .remove-para-btn { background: none; border: none; color: #333; cursor: pointer; font-size: 18px; align-self: flex-start; padding: 8px 4px; transition: color 0.15s; }
     .remove-para-btn:hover { color: var(--danger); }
+    .contact-group-card { background: var(--surface2); border: 1px solid var(--border); padding: 16px; margin-bottom: 10px; }
+    .contact-group-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .contact-group-label-input { flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 10px; outline: none; }
+    .contact-group-label-input:focus { border-color: #555; }
+    .contact-item-row { display: grid; grid-template-columns: 1fr 1fr 28px; gap: 6px; margin-bottom: 6px; }
+    .contact-item-input { background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 12px; padding: 7px 10px; outline: none; }
+    .contact-item-input:focus { border-color: #555; }
+    .contact-item-input::placeholder { color: #444; }
+    .remove-item-btn { background: none; border: none; color: #333; cursor: pointer; font-size: 16px; transition: color 0.15s; }
+    .remove-item-btn:hover { color: var(--danger); }
+    .remove-group-btn { background: none; border: none; color: #333; cursor: pointer; font-size: 18px; padding: 4px; transition: color 0.15s; flex-shrink: 0; }
+    .remove-group-btn:hover { color: var(--danger); }
   </style>
 </head>
 <body>
@@ -152,6 +164,7 @@
       <div style="padding: 12px 0 0; border-top: 1px solid var(--border); margin-top: 12px;">
         <div class="sidebar-label">Content</div>
         <div class="sidebar-item" id="bio-nav-item">Bio</div>
+        <div class="sidebar-item" id="contact-nav-item">Contact</div>
       </div>
     </aside>
 
@@ -242,6 +255,21 @@
           <button id="publish-btn" class="btn btn-primary btn-sm" disabled>Upload & Publish</button>
         </div>
       </div>
+      <!-- Contact editor (hidden by default) -->
+      <div id="contact-section" class="hidden">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Contact</div>
+            <div class="page-subtitle">Edit contact groups and links</div>
+          </div>
+          <button id="add-group-btn" class="btn btn-ghost btn-sm">+ Add Group</button>
+        </div>
+        <div id="contact-groups-editor"></div>
+        <div class="form-actions" style="margin-top:20px">
+          <button id="save-contact-btn" class="btn btn-primary btn-sm">Save Contact</button>
+        </div>
+      </div>
+
       <!-- Bio editor (hidden by default) -->
       <div id="bio-section" class="hidden">
         <div class="page-header">
@@ -386,9 +414,10 @@ function renderList() {
 /* ── Sidebar navigation ──────────────────────────────────────────────────── */
 const projectsView = () => {
   $('project-list').classList.remove('hidden');
-  $('add-form').classList.add('hidden');   // also hide add-form if open
+  $('add-form').classList.add('hidden');
   $('show-form-btn').classList.remove('hidden');
   $('bio-section').classList.add('hidden');
+  $('contact-section').classList.add('hidden');
 };
 
 const bioView = () => {
@@ -396,7 +425,17 @@ const bioView = () => {
   $('add-form').classList.add('hidden');
   $('show-form-btn').classList.add('hidden');
   $('bio-section').classList.remove('hidden');
+  $('contact-section').classList.add('hidden');
   loadBio();
+};
+
+const contactView = () => {
+  $('project-list').classList.add('hidden');
+  $('add-form').classList.add('hidden');
+  $('show-form-btn').classList.add('hidden');
+  $('bio-section').classList.add('hidden');
+  $('contact-section').classList.remove('hidden');
+  loadContact();
 };
 
 document.querySelectorAll('.sidebar-item[data-filter]').forEach(item => {
@@ -413,6 +452,12 @@ $('bio-nav-item').addEventListener('click', () => {
   document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
   $('bio-nav-item').classList.add('active');
   bioView();
+});
+
+$('contact-nav-item').addEventListener('click', () => {
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  $('contact-nav-item').classList.add('active');
+  contactView();
 });
 
 /* ── Bio editor ──────────────────────────────────────────────────────────── */
@@ -468,6 +513,80 @@ $('save-bio-btn').addEventListener('click', async () => {
   } else {
     const err = await res.json();
     showToast(err.error || 'Error saving bio');
+  }
+});
+
+/* ── Contact editor ──────────────────────────────────────────────────────── */
+function addContactItem(container, item = { text: '', href: '' }) {
+  const row = document.createElement('div');
+  row.className = 'contact-item-row';
+  row.innerHTML = `
+    <input class="contact-item-input item-text" type="text" placeholder="Label" value="${item.text.replace(/"/g, '&quot;')}" />
+    <input class="contact-item-input item-href" type="text" placeholder="URL or mailto: (optional)" value="${(item.href || '').replace(/"/g, '&quot;')}" />
+    <button class="remove-item-btn" title="Remove item">×</button>`;
+  row.querySelector('.remove-item-btn').addEventListener('click', () => row.remove());
+  container.appendChild(row);
+}
+
+function addContactGroup(group = { label: '', items: [] }) {
+  const card = document.createElement('div');
+  card.className = 'contact-group-card';
+  card.innerHTML = `
+    <div class="contact-group-header">
+      <input class="contact-group-label-input" type="text" placeholder="GROUP LABEL" value="${group.label.replace(/"/g, '&quot;')}" />
+      <button class="remove-group-btn" title="Remove group">×</button>
+    </div>
+    <div class="contact-items-list"></div>
+    <button class="btn btn-ghost btn-sm add-item-btn" style="margin-top:8px;width:auto">+ Add Item</button>`;
+
+  const itemsList = card.querySelector('.contact-items-list');
+  group.items.forEach(item => addContactItem(itemsList, item));
+  card.querySelector('.add-item-btn').addEventListener('click', () => addContactItem(itemsList));
+  card.querySelector('.remove-group-btn').addEventListener('click', () => card.remove());
+
+  $('contact-groups-editor').appendChild(card);
+}
+
+async function loadContact() {
+  $('contact-groups-editor').innerHTML = '';
+  try {
+    const res = await fetch('/data/contact.json');
+    const groups = await res.json();
+    groups.forEach(g => addContactGroup(g));
+  } catch {
+    addContactGroup();
+  }
+}
+
+$('add-group-btn').addEventListener('click', () => addContactGroup());
+
+$('save-contact-btn').addEventListener('click', async () => {
+  const groups = Array.from($('contact-groups-editor').querySelectorAll('.contact-group-card')).map(card => ({
+    label: card.querySelector('.contact-group-label-input').value.trim(),
+    items: Array.from(card.querySelectorAll('.contact-item-row')).map(row => ({
+      text: row.querySelector('.item-text').value.trim(),
+      href: row.querySelector('.item-href').value.trim(),
+    })).filter(item => item.text),
+  })).filter(g => g.label);
+
+  const btn = $('save-contact-btn');
+  btn.disabled    = true;
+  btn.textContent = 'Saving…';
+
+  const res = await fetch('/api/contact', {
+    method:  'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ groups }),
+  });
+
+  btn.disabled    = false;
+  btn.textContent = 'Save Contact';
+
+  if (res.ok) {
+    showToast('Contact saved. Deploying (~30s)…', 'success');
+  } else {
+    const err = await res.json();
+    showToast(err.error || 'Error saving contact');
   }
 });
 
