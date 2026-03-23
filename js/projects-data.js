@@ -33,7 +33,7 @@ const PROJECTS = {
     producer:      'Rebolución',
     dop:           '',
     year:          '',
-    videoUrl:       '1087432295',
+    videoUrl:      '1087432295',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -50,7 +50,7 @@ const PROJECTS = {
     producer:      'Doce Studios',
     dop:           '',
     year:          '',
-    videoUrl:       '1042658327',
+    videoUrl:      '1042658327',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -67,7 +67,7 @@ const PROJECTS = {
     producer:      'Bohemian Groove',
     dop:           '',
     year:          '',
-    videoUrl:       '1006271726',
+    videoUrl:      '1006271726',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -101,7 +101,7 @@ const PROJECTS = {
     producer:      '',
     dop:           '',
     year:          '',
-    videoUrl:       '994107718',
+    videoUrl:      '994107718',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -118,7 +118,7 @@ const PROJECTS = {
     producer:      '',
     dop:           '',
     year:          '',
-    videoUrl:       '838814267',
+    videoUrl:      '838814267',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -135,7 +135,7 @@ const PROJECTS = {
     producer:      'Rebolución',
     dop:           '',
     year:          '',
-    videoUrl:       '1091619677',
+    videoUrl:      '1091619677',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -152,7 +152,7 @@ const PROJECTS = {
     producer:      'Argentina Cine',
     dop:           '',
     year:          '',
-    videoUrl:       '1091612207',
+    videoUrl:      '1091612207',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -169,7 +169,7 @@ const PROJECTS = {
     producer:      '',
     dop:           '',
     year:          '',
-    videoUrl:       '857177923',
+    videoUrl:      '857177923',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -186,7 +186,7 @@ const PROJECTS = {
     producer:      'Landia',
     dop:           '',
     year:          '',
-    videoUrl:       '1148723478',
+    videoUrl:      '1148723478',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -203,7 +203,7 @@ const PROJECTS = {
     producer:      'The Movement Land',
     dop:           '',
     year:          '',
-    videoUrl:       '',
+    videoUrl:      '',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -220,7 +220,7 @@ const PROJECTS = {
     producer:      'The Movement Land',
     dop:           '',
     year:          '',
-    videoUrl:       '1026266849',
+    videoUrl:      '1026266849',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -237,7 +237,7 @@ const PROJECTS = {
     producer:      'Primo Content',
     dop:           'Khalid Mohtaseb',
     year:          '',
-    videoUrl:       '939602351',
+    videoUrl:      '939602351',
     secdirector:   'Valentine Torre',
     secdop:        'Iván Juliá',
     stills: [
@@ -254,7 +254,7 @@ const PROJECTS = {
     producer:      'Rebolución',
     dop:           '',
     year:          '',
-    videoUrl:       '1091630332',
+    videoUrl:      '1091630332',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -271,7 +271,7 @@ const PROJECTS = {
     producer:      '',
     dop:           '',
     year:          '',
-    videoUrl:       '1006458917',
+    videoUrl:      '1006458917',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -291,7 +291,7 @@ const PROJECTS = {
     producer:      'Doce Studios',
     dop:           '',
     year:          '',
-    videoUrl:       '1072688254',
+    videoUrl:      '1072688254',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -308,7 +308,7 @@ const PROJECTS = {
     producer:      'Landia',
     dop:           '',
     year:          '',
-    videoUrl:       '1117770024',
+    videoUrl:      '1117770024',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -325,7 +325,7 @@ const PROJECTS = {
     producer:      'Doce Studios',
     dop:           '',
     year:          '',
-    videoUrl:       '1048155809',
+    videoUrl:      '1048155809',
     secdirector:   '',
     secdop:        '',
     stills: [
@@ -344,7 +344,7 @@ const PROJECTS = {
     producer:      '',
     dop:           '',
     year:          '',
-    videoUrl:       '',
+    videoUrl:      '',
     secdop:        '',
     stills: [
       '../assets/images/STILLS NARRATIVES/La biblioteca /jornada.01._1.12.1.webp',
@@ -360,7 +360,7 @@ const PROJECTS = {
     producer:      '',
     dop:           '',
     year:          '',
-    videoUrl:       '936050784',
+    videoUrl:      '936050784',
     secdirector:   '',
     secdop:        '',
     stills: [
