@@ -88,10 +88,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const galleryEl = document.getElementById('pd-gallery');
   data.stills.forEach((src, i) => {
     const lqSrc = src.replace('.webp', '-lq.webp');
+    const cached = typeof getHqCache === 'function' && getHqCache().has(src);
     galleryEl.insertAdjacentHTML('beforeend', `
       <div class="gallery-item">
-        <img class="lq" loading="lazy"
-             src="${esc(lqSrc)}" data-hq="${esc(src)}"
+        <img class="${cached ? 'hq-ready' : 'lq'}" loading="lazy"
+             src="${esc(cached ? src : lqSrc)}" data-hq="${esc(src)}"
              alt="${esc(data.title)} — still ${i + 1}" />
       </div>`);
   });
