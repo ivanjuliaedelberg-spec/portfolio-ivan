@@ -97,4 +97,69 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   if (typeof initProgressiveImages === 'function') initProgressiveImages();
+
+  // ── Lightbox ──
+  (function () {
+    // Collect HQ src from each gallery image's data-hq attribute
+    const galleryImgs = Array.from(document.querySelectorAll('#pd-gallery .gallery-item img'));
+    const hqSrcs = galleryImgs.map(img => img.dataset.hq || img.src);
+
+    let currentIndex = 0;
+
+    const lb = document.createElement('div');
+    lb.id = 'lightbox';
+    lb.setAttribute('hidden', '');
+    lb.innerHTML = `
+      <button class="lightbox-close" aria-label="Close">&#x2715;</button>
+      <button class="lightbox-prev" aria-label="Previous">&#x2039;</button>
+      <button class="lightbox-next" aria-label="Next">&#x203A;</button>
+      <img class="lightbox-img" src="" alt="" />
+    `;
+    document.body.appendChild(lb);
+
+    const lbImg = lb.querySelector('.lightbox-img');
+    const prevBtn = lb.querySelector('.lightbox-prev');
+    const nextBtn = lb.querySelector('.lightbox-next');
+
+    function show(index) {
+      currentIndex = index;
+      lbImg.src = hqSrcs[currentIndex];
+      lbImg.alt = `${data.title} \u2014 still ${currentIndex + 1}`;
+      prevBtn.style.display = hqSrcs.length > 1 ? '' : 'none';
+      nextBtn.style.display = hqSrcs.length > 1 ? '' : 'none';
+      lb.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      lb.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+    }
+
+    function prev() {
+      show((currentIndex - 1 + hqSrcs.length) % hqSrcs.length);
+    }
+
+    function next() {
+      show((currentIndex + 1) % hqSrcs.length);
+    }
+
+    galleryImgs.forEach((img, i) => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => show(i));
+    });
+
+    lb.querySelector('.lightbox-close').addEventListener('click', close);
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); next(); });
+
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (lb.hasAttribute('hidden')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    });
+  })();
 });
