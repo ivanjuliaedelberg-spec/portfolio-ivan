@@ -57,10 +57,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   const videoEl = document.getElementById('pd-video');
-  if (data.vimeoId && /^\d+$/.test(data.vimeoId)) {
+  const videoUrl = data.videoUrl;
+  if (videoUrl) {
+    let embedSrc;
+    if (/youtu\.be\/|youtube\.com\/watch/.test(videoUrl)) {
+      let ytId;
+      if (videoUrl.includes('youtu.be/')) {
+        ytId = videoUrl.split('youtu.be/')[1].split(/[?&]/)[0];
+      } else {
+        ytId = new URLSearchParams(videoUrl.split('?')[1]).get('v');
+      }
+      embedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=0`;
+    } else {
+      embedSrc = `https://player.vimeo.com/video/${videoUrl}?autoplay=0&title=0&byline=0&portrait=0`;
+    }
     videoEl.innerHTML = `
       <iframe
-        src="https://player.vimeo.com/video/${esc(data.vimeoId)}?autoplay=0&title=0&byline=0&portrait=0"
+        src="${esc(embedSrc)}"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen>
       </iframe>`;
