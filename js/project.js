@@ -67,16 +67,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         ytId = new URLSearchParams(videoUrl.split('?')[1]).get('v');
       }
-      embedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=0`;
+      if (ytId) embedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=0`;
     } else {
       embedSrc = `https://player.vimeo.com/video/${videoUrl}?autoplay=0&title=0&byline=0&portrait=0`;
     }
-    videoEl.innerHTML = `
-      <iframe
-        src="${esc(embedSrc)}"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen>
-      </iframe>`;
+    if (embedSrc) {
+      videoEl.innerHTML = `
+        <iframe
+          src="${esc(embedSrc)}"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>`;
+    } else {
+      videoEl.style.display = 'none';
+    }
   } else {
     videoEl.style.display = 'none';
   }
