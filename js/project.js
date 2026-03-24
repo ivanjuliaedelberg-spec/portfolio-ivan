@@ -87,17 +87,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const galleryEl = document.getElementById('pd-gallery');
   data.stills.forEach((src, i) => {
-    const lqSrc = src.replace('.webp', '-lq.webp');
-    const cached = typeof getHqCache === 'function' && getHqCache().has(src);
     galleryEl.insertAdjacentHTML('beforeend', `
       <div class="gallery-item">
-        <img class="${cached ? 'hq-ready' : 'lq'}" loading="lazy"
-             src="${esc(cached ? src : lqSrc)}" data-hq="${esc(src)}"
+        <img loading="eager"
+             src="${esc(src)}" data-hq="${esc(src)}"
              alt="${esc(data.title)} — still ${i + 1}" />
       </div>`);
   });
-
-  if (typeof initProgressiveImages === 'function') initProgressiveImages();
 
   // ── Lightbox ──
   (function () {
