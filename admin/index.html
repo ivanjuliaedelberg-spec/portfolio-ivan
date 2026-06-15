@@ -684,35 +684,66 @@ function resetSlot(n) {
   input.value = '';
 }
 
+/* Compress an image in the browser before upload: resize to max 1920px wide
+   and re-encode as WebP. Honors EXIF orientation (phone photos). Falls back to
+   the original file if the browser can't produce a WebP blob. */
+async function compressImage(file, maxW = 1920, quality = 0.82) {
+  if (!file.type.startsWith('image/')) return file;
+  const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+  const scale  = Math.min(1, maxW / bitmap.width);
+  const w = Math.round(bitmap.width  * scale);
+  const h = Math.round(bitmap.height * scale);
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  canvas.getContext('2d').drawImage(bitmap, 0, 0, w, h);
+  bitmap.close?.();
+  const blob = await new Promise(r => canvas.toBlob(r, 'image/webp', quality));
+  if (!blob) return file;
+  const name = file.name.replace(/\.[^.]+$/, '') + '.webp';
+  return new File([blob], name, { type: 'image/webp' });
+}
+
 [1,2,3].forEach(n => {
-  $(`slot-${n}`).querySelector('input').addEventListener('change', function() {
+  $(`slot-${n}`).querySelector('input').addEventListener('change', async function() {
     const file = this.files[0];
     if (!file) return;
 
-    if (file.size > 10 * 1024 * 1024) {
-      const slot = $(`slot-${n}`);
+    const slot = $(`slot-${n}`);
+
+    // Reject only absurdly large originals — compression handles the rest.
+    if (file.size > 30 * 1024 * 1024) {
       slot.classList.add('slot-error');
-      slot.querySelector('.slot-status').textContent = 'Too large (max 10 MB)';
+      slot.querySelector('.slot-status').textContent = 'Too large (max 30 MB)';
       selectedFiles[n] = null;
       checkPublishReady();
       return;
     }
 
-    selectedFiles[n] = file;
-
-    const slot = $(`slot-${n}`);
+    // Show local preview immediately while we compress.
     slot.classList.remove('slot-error');
     slot.classList.add('uploaded');
     slot.querySelector('.slot-icon').style.display  = 'none';
     slot.querySelector('.slot-label').style.display = 'none';
-    slot.querySelector('.slot-status').textContent  = '✓ Ready';
-
-    // Show local preview immediately
+    slot.querySelector('.slot-status').textContent  = 'Compressing…';
     slot.querySelector('img')?.remove();
     const img = document.createElement('img');
     img.src = URL.createObjectURL(file);
     img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
     slot.insertBefore(img, slot.firstChild);
+
+    selectedFiles[n] = null;
+    checkPublishReady();
+
+    try {
+      const compressed = await compressImage(file);
+      selectedFiles[n] = compressed;
+      const kb = Math.round(compressed.size / 1024);
+      slot.querySelector('.slot-status').textContent = `✓ Ready (${kb} KB)`;
+    } catch (err) {
+      slot.classList.add('slot-error');
+      slot.querySelector('.slot-status').textContent = 'Compression failed — try another image';
+      selectedFiles[n] = null;
+    }
 
     checkPublishReady();
   });
@@ -752,25 +783,43 @@ $('publish-btn').addEventListener('click', async () => {
   fd.append('file2', selectedFiles[2]);
   fd.append('file3', selectedFiles[3]);
 
-  const res = await fetch('/api/publish', { method: 'POST', body: fd });
+  try {
+    const res = await fetch('/api/publish', { method: 'POST', body: fd });
 
-  if (res.ok) {
-    const { project } = await res.json();
-    showToast('Published! Deploying (~30s)…', 'success');
-    allProjects.push(project);
-    renderList();
-    updateCounts();
-    resetForm();
-  } else {
-    const err = await res.json();
-    if (res.status === 409 && err.error.includes('already exists')) {
-      $('f-id').classList.add('error-field');
-      $('id-error').textContent = 'ID already taken — edit it';
-    } else {
-      showToast(err.error || 'Error publishing project');
+    if (res.ok) {
+      const { project } = await res.json();
+      showToast('Published! Deploying (~30s)…', 'success');
+      allProjects.push(project);
+      renderList();
+      updateCounts();
+      resetForm();
+      return;
     }
-    btn.disabled    = false;
+
+    // Error response — may be JSON (handled error) or HTML (timeout / crash).
+    let errMsg = `Server error (${res.status})`;
+    try {
+      const err = await res.json();
+      if (res.status === 409 && err.error && err.error.includes('already exists')) {
+        $('f-id').classList.add('error-field');
+        $('id-error').textContent = 'ID already taken — edit it';
+        return;
+      }
+      errMsg = err.error || errMsg;
+    } catch {
+      if (res.status === 504 || res.status === 408) {
+        errMsg = 'Timed out (504). Images may be too large — try again.';
+      } else if (res.status === 413) {
+        errMsg = 'Upload too large (413).';
+      }
+    }
+    showToast(errMsg);
+  } catch (err) {
+    // Network failure or aborted request — surface it instead of hanging.
+    showToast('Network error — check your connection and try again');
+  } finally {
     btn.textContent = 'Upload & Publish';
+    checkPublishReady(); // re-enable only if files are still selected
   }
 });
 </script>
