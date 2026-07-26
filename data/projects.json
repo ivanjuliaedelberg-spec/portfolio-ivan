@@ -394,5 +394,23 @@
       "/assets/images/mal-trago/still-2.webp",
       "/assets/images/mal-trago/still-3.webp"
     ]
+  },
+  {
+    "id": "edicion-n5-auto-registro---la-rando",
+    "title": "Edición Nº5 (Auto) Registro - La Rando",
+    "categoryLabel": "Commercial",
+    "category": "commercials",
+    "director": "Juan Manuel Pinzón",
+    "producer": "",
+    "dop": "",
+    "secdirector": "",
+    "secdop": "",
+    "year": "",
+    "videoUrl": "https://vimeo.com/1178691831",
+    "stills": [
+      "/assets/images/edicion-n5-auto-registro---la-rando/still-1.webp",
+      "/assets/images/edicion-n5-auto-registro---la-rando/still-2.webp",
+      "/assets/images/edicion-n5-auto-registro---la-rando/still-3.webp"
+    ]
   }
 ]
