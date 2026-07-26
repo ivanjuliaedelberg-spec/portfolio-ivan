@@ -376,23 +376,5 @@
       "/assets/images/mal-trago/still-2.webp",
       "/assets/images/mal-trago/still-3.webp"
     ]
-  },
-  {
-    "id": "k4--kia-dc",
-    "title": "K4- KIA DC",
-    "categoryLabel": "Music Video",
-    "category": "music-videos",
-    "director": "Mateo Caride & Jason Krayen",
-    "producer": "Ocio",
-    "dop": "",
-    "secdirector": "",
-    "secdop": "",
-    "year": "2026",
-    "videoUrl": "https://vimeo.com/1203859332?share=copy&fl=sv&fe=ci",
-    "stills": [
-      "/assets/images/k4--kia-dc/still-1.webp",
-      "/assets/images/k4--kia-dc/still-2.webp",
-      "/assets/images/k4--kia-dc/still-3.webp"
-    ]
   }
 ]
